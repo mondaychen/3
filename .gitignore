@@ -1,6 +1,6 @@
 *.DS_Store
 *.swp
 /css/*.css
-/js/dist/*
+/dist/*
 /bower_components/*
 /node_modules/*

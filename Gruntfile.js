@@ -19,7 +19,7 @@ module.exports = function(grunt) {
         saveConfig: false,
         config: {
           baseUrl: "./js/",
-          distUrl: "./js/dist/",
+          distUrl: "./dist/js/",
           loader: "../bower_components/ozjs/oz.js",
           disableAutoSuffix: true,
         },
@@ -30,6 +30,11 @@ module.exports = function(grunt) {
 
     watch: {
       grunt: { files: ['Gruntfile.js'] },
+
+      ozma: {
+        files: ["./js/**/*.js"],
+        tasks: ["ozma:app"]
+      },
 
       stylus: {
         files: ['./css/**/*.styl'],
@@ -42,6 +47,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('build', ['stylus']);
+  grunt.registerTask('build', ['stylus', 'ozma:app']);
   grunt.registerTask('default', ['build']);
 }
