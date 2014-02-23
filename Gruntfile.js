@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
     stylus: {
       compile: {
         options: {
@@ -9,6 +10,21 @@ module.exports = function(grunt) {
         files: {
           "./css/app.css": "./css/app.styl"
         }
+      }
+    },
+
+    ozma: {
+      app: {
+        src: "./js/setup.js",
+        saveConfig: false,
+        config: {
+          baseUrl: "./js/",
+          distUrl: "./js/dist/",
+          loader: "./bower_components/ozjs/oz.js",
+          disableAutoSuffix: true,
+        },
+        slient: false,
+        jam: false
       }
     },
 
@@ -22,6 +38,7 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-ozjs');
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-watch');
 

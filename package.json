@@ -7,16 +7,20 @@
     "email": "monday.chen@gmail.com",
     "url": "http://github.com/mondaychen"
   },
-  "licenses": [{
-    "type": "MIT",
-    "url": "http://www.opensource.org/licenses/mit-license.php"
-  }],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ],
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-stylus": "~0.10.0"
+    "grunt-contrib-stylus": "~0.10.0",
+    "grunt-ozjs": "~0.4.2"
   },
-  "dependencies": {},
+  "dependencies": {
+  },
   "keywords": [
     "html5",
     "css3",
