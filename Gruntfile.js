@@ -20,7 +20,7 @@ module.exports = function(grunt) {
         config: {
           baseUrl: "./js/",
           distUrl: "./js/dist/",
-          loader: "./bower_components/ozjs/oz.js",
+          loader: "../bower_components/ozjs/oz.js",
           disableAutoSuffix: true,
         },
         slient: false,
