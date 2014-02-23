@@ -1,6 +1,6 @@
 require.config({
-  baseUrl: "./js/",
-  aliases: {
+  baseUrl: "./js/"
+, aliases: {
     'lib': '../bower_components/'
   }
 })
