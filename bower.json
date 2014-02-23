@@ -1,0 +1,29 @@
+{
+  "name": "Threes",
+  "version": "0.0.1",
+  "authors": [
+    "mondaychen <monday.chen@gmail.com>"
+  ],
+  "description": "A html version of iOS game \"Threes\"",
+  "main": "index.html",
+  "keywords": [
+    "html5",
+    "css3",
+    "game",
+    "JavaScript"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "backbone": "~1.1.2",
+    "ozjs": "~2.6.3"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
