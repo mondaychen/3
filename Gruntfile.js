@@ -18,7 +18,7 @@ module.exports = function(grunt) {
         src: "./js/setup.js"
       , saveConfig: false
       , config: {
-          baseUrl: "./js/"
+          baseUrl: "./bower_components/"
         , distUrl: "./dist/js/"
         , loader: "../bower_components/ozjs/oz.js"
         , disableAutoSuffix: true

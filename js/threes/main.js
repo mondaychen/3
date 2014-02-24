@@ -2,7 +2,7 @@ define([
   'jquery'
 , 'underscore'
 , 'backbone'
-, 'app'
+, 'threes/app'
 ], function($, _, Backbone, app) {
   function initialize() {
     console.log(1)

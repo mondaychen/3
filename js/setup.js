@@ -1,15 +1,15 @@
 require.config({
-  baseUrl: "./js/"
+  baseUrl: "./bower_components/"
 , aliases: {
-    'lib': '../bower_components/'
+    'threes': '../js/threes/'
   }
 })
 
-define('jquery', '{lib}/jquery/dist/jquery.min.js')
-define('underscore', '{lib}/underscore/underscore.js')
+define('jquery', './jquery/dist/jquery.min.js')
+define('underscore', 'underscore/underscore.js')
 define('backbone', ['jquery', 'underscore'],
-  '{lib}/backbone/backbone.js')
+  'backbone/backbone.js')
 
-require(['main'], function(app) {
+require(['threes/main'], function(app) {
   app.initialize()
 })
