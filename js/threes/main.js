@@ -17,7 +17,7 @@ define([
       app.wrapper = $('#wrapper')
 
       // init view
-      var fixedHeight = 768
+      var fixedHeight = 1024
       var viewHeight = $(window).height()
       $('html').css('font-size', (viewHeight/fixedHeight)+'px')
       $(window).resize(_.debounce(function() {
