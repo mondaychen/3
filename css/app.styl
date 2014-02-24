@@ -5,13 +5,20 @@ html
   font-family: 'Signika', 'Comic Sans MS', 'PT Sans', 'Eras Light ITC', Helvetica, Arial, sans-serif;
 
 #wrapper
-  max-width: 800px
+  max-width: 600px
   margin: 0 auto
+
+.plate
+  background: #cfe6df
+  padding: 20px
+  border-top: 5px solid #bcd9d9
+  border-radius: 15px
+  overflow: hidden
 
 .tile
   height: 100px
   width: 70px
-  background: #db7474
+  background: #ffcc66
   border-radius: 6px
   position: relative
   overflow: hidden
@@ -21,10 +28,20 @@ html
     line-height: @height
     box-sizing: border-box
     font-size: 45px
-    color: #fff
     border-radius: @border-radius
     position: absolute
     text-align: center
     top: -5px
     padding-top: 5px
-    background: #f88
+    background: #feffff
+    color: #000
+  &.one
+    background: #60aaf1
+    .number
+      color: #fff
+      background: #66ccff
+  &.two
+    background: #cc547c
+    .number
+      color: #fff
+      background: #ff6881
