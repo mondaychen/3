@@ -25,6 +25,7 @@ define([
       var playingView = new PlayingView()
       app.wrapper.html(playingView.render().el)
     }
+
   , go: function(url) {
       this.navigate(url, {trigger: true})
     }
