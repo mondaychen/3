@@ -3,6 +3,7 @@
 
 html
   font-family: 'Signika', 'Comic Sans MS', 'PT Sans', 'Eras Light ITC', Helvetica, Arial, sans-serif;
+  font-size: 16px
 
 #wrapper
   max-width: 600px
@@ -10,29 +11,30 @@ html
 
 .plate
   background: #cfe6df
-  padding: 20px
-  border-top: 5px solid #bcd9d9
-  border-radius: 15px
+  padding: 1rem
+  border-top: 0.25rem solid #bcd9d9
+  border-radius: 1rem
   overflow: hidden
 
 .tile
-  height: 100px
-  width: 70px
+  height: 6.25rem
+  width: 4.375rem
   background: #ffcc66
-  border-radius: 6px
+  border-radius: 0.375rem
   position: relative
   overflow: hidden
+  margin: 0.625rem
   .number
-    width: @width
+    width: 100%
     height: @height
     line-height: @height
     box-sizing: border-box
-    font-size: 45px
+    font-size: (45/16)rem
     border-radius: @border-radius
     position: absolute
     text-align: center
-    top: -5px
-    padding-top: 5px
+    top: (-5/16)rem
+    padding-top: (5/16)rem
     background: #feffff
     color: #000
   &.one
