@@ -6,7 +6,26 @@
   <link rel="stylesheet" href="./css/app.css">
 </head>
 <body>
-  <h1>Threes</h1>
+  <div id="wrapper">
+    <h1>Threes 1234</h1>
+    <div class="tile">
+      <div class="number">2</div>
+    </div>
+  </div>
   <script src="./dist/js/setup.js"></script>
+  <script type="text/javascript">
+    WebFontConfig = {
+      google: { families: [ 'Signika::latin' ] }
+    };
+    (function() {
+      var wf = document.createElement('script');
+      wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+        '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+      wf.type = 'text/javascript';
+      wf.async = 'true';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(wf, s);
+    })();
+  </script>
 </body>
 </html>
