@@ -3,38 +3,45 @@
 
 html
   font-family: 'Signika', 'Comic Sans MS', 'PT Sans', 'Eras Light ITC', Helvetica, Arial, sans-serif;
+  font-size: 1px
+
+body
   font-size: 16px
 
 #wrapper
-  max-width: 600px
+  max-width: 533rem
   margin: 0 auto
 
 .plate
   background: #cfe6df
-  padding: 1rem
-  border-top: 0.25rem solid #bcd9d9
-  border-radius: 1rem
+  box-sizing: border-box
+  width: 533rem
+  height: 714rem
+  padding: 12rem 0 10rem
+  border-top: 4rem solid #bcd9d9
+  border-radius: 16rem
   overflow: hidden
+  margin: 0 auto
 
 .tile
-  height: 6.25rem
-  width: 4.375rem
+  height: 159rem
+  width: 106rem
   background: #ffcc66
-  border-radius: 0.375rem
+  border-radius: 6rem
   position: relative
   overflow: hidden
-  margin: 0.625rem
+  margin: 10rem 22rem
   .number
     width: 100%
     height: @height
     line-height: @height
     box-sizing: border-box
-    font-size: (45/16)rem
+    font-size: 80rem
     border-radius: @border-radius
     position: absolute
     text-align: center
-    top: (-5/16)rem
-    padding-top: (5/16)rem
+    top: -5rem
+    padding-top: 5rem
     background: #feffff
     color: #000
   &.num-1

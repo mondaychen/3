@@ -15,6 +15,18 @@ define([
 
   , initialize: function() {
       app.wrapper = $('#wrapper')
+
+      // init view
+      var fixedHeight = 768
+      var viewHeight = $(window).height()
+      $('html').css('font-size', (viewHeight/fixedHeight)+'px')
+      $(window).resize(_.debounce(function() {
+        // var cfm = confirm("You have resized the window. would you like to "
+        //   + "refresh to make a adaptation?")
+        // if(cfm) {
+        //   window.location.reload()
+        // }
+      }, 300))
     }
 
   , home: function() {
