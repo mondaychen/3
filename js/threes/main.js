@@ -2,9 +2,10 @@ define([
   'jquery'
 , 'underscore'
 , 'backbone'
+, 'bowser'
 , 'threes/app'
 , 'threes/views/playing'
-], function($, _, Backbone, app, PlayingView) {
+], function($, _, Backbone, bowser, app, PlayingView) {
 
   var AppRouter = Backbone.Router.extend({
 
@@ -18,14 +19,22 @@ define([
 
       // init view
       var fixedHeight = 1024
-      var viewHeight = $(window).height()
-      $('html').css('font-size', (viewHeight/fixedHeight)+'px')
+      function fixRootEm () {
+        var viewHeight = $(window).height()
+        $('html').css('font-size', (viewHeight/fixedHeight)+'px')
+      }
+      fixRootEm()
       $(window).resize(_.debounce(function() {
-        // var cfm = confirm("You have resized the window. would you like to "
-        //   + "refresh to make a adaptation?")
-        // if(cfm) {
-        //   window.location.reload()
-        // }
+        if(bowser.firefox) {
+          // seems only firefox render this perfectly
+          fixRootEm()
+        } else {
+          // var cfm = confirm("You have resized the window. would you like to "
+          //   + "refresh to make a adaptation?")
+          // if(cfm) {
+          //   window.location.reload()
+          // }
+        }
       }, 300))
     }
 

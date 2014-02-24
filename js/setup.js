@@ -10,6 +10,8 @@ define('underscore', 'underscore/underscore.js')
 define('backbone', ['jquery', 'underscore'],
   'backbone/backbone.js')
 
+define('bowser', 'bowser/bowser.min.js')
+
 require(['threes/main'], function(app) {
   app.initialize()
 })
