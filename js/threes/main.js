@@ -19,16 +19,17 @@ define([
 
       // init view
       var blueprint = {width: 768, height: 1024}
+      var root = $('html'), win = $(window)
       function fixRootEm () {
-        var viewHeight = $(window).height()
-        var viewWidth = $(window).width()
+        var viewHeight = win.height()
+        var viewWidth = win.width()
         var ratio = Math.min(viewHeight/blueprint.height, viewWidth/blueprint.width)
-        $('html').css('font-size', ratio+'px')
+        root.css('font-size', ratio+'px')
       }
       fixRootEm()
       $(window).resize(_.debounce(function() {
+        // seems only firefox render this perfectly
         if(bowser.firefox) {
-          // seems only firefox render this perfectly
           fixRootEm()
         } else {
           // var cfm = confirm("You have resized the window. would you like to "
