@@ -42,7 +42,6 @@ define([
         time: 0.2
       , timing: 'linear'
       })
-      console.log('update')
     }
   , getPosition: function(refresh) {
       if(!refresh && this._position) {
@@ -64,11 +63,21 @@ define([
       if(this.checkWalls(direction)) {
         return
       }
-      if(direction === 'up' || direction === 'down') {
-        position.top -= distance
-      }
-      if(direction === 'left' || direction === 'right') {
-        position.left += distance
+      switch (direction) {
+        case 'up':
+          position.top -= Math.min(this.$el.height(), distance)
+          break;
+        case 'right':
+          position.left += Math.min(this.$el.width(), distance)
+          break;
+        case 'down':
+          position.top -= Math.max(-this.$el.height(), distance)
+          break;
+        case 'left':
+          position.left += Math.max(-this.$el.width(), distance)
+          break;
+        default:
+          break;
       }
       this.$el.css(position)
     }
