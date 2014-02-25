@@ -18,10 +18,12 @@ define([
       app.wrapper = $('#wrapper')
 
       // init view
-      var fixedHeight = 1024
+      var blueprint = {width: 768, height: 1024}
       function fixRootEm () {
         var viewHeight = $(window).height()
-        $('html').css('font-size', (viewHeight/fixedHeight)+'px')
+        var viewWidth = $(window).width()
+        var ratio = Math.min(viewHeight/blueprint.height, viewWidth/blueprint.width)
+        $('html').css('font-size', ratio+'px')
       }
       fixRootEm()
       $(window).resize(_.debounce(function() {
