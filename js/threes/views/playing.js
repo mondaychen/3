@@ -5,15 +5,18 @@ define([
 , 'threes/app'
 ], function($, _, Backbone, app) {
   var PlayingView = Backbone.View.extend({
-    id: "#playing-view"
+    id: "playing-view"
   , initialize: function() {
     }
   , render: function() {
-      var plate = $('<div class="plate"></div>')
-      plate.append(this.makeTile(1))
-      plate.append(this.makeTile(2))
-      plate.append(this.makeTile(3))
-      this.$el.html(plate)
+      this.plate = $('<div class="plate"></div>').appendTo(this.$el)
+      this.plate.append(this.makeTile(1))
+      this.plate.append(this.makeTile(2))
+      this.plate.append(this.makeTile(3))
+
+      this.header = $('<header></header>').prependTo(this.$el)
+      this.footer = $('<footer></footer>').appendTo(this.$el)
+
       return this
     }
   , makeTile: function(num){
