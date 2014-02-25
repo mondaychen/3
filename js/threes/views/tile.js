@@ -49,12 +49,12 @@ define([
         return _.clone(this._position)
       }
       var eq = (this.m - 1) * 4 + this.n - 1
-      var position = this.bgTiles.eq(eq).offset()
+      var bgPos = this.bgTiles.eq(eq).offset()
       var offset = this.plate.offset()
       this._position = {
-        top: position.top - offset.top
+        top: bgPos.top - offset.top
           - parseFloat(this.plate.css('border-top-width'))
-      , left: position.left - offset.left
+      , left: bgPos.left - offset.left
       }
       return _.clone(this._position)
     }
