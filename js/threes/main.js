@@ -23,8 +23,8 @@ define([
       function fixRootEm () {
         var viewHeight = win.height()
         var viewWidth = win.width()
-        var ratio = Math.min(viewHeight/blueprint.height, viewWidth/blueprint.width)
-        root.css('font-size', ratio+'px')
+        app.ratio = Math.min(viewHeight/blueprint.height, viewWidth/blueprint.width)
+        root.css('font-size', app.ratio+'px')
       }
       fixRootEm()
       $(window).resize(_.debounce(function() {
@@ -48,6 +48,7 @@ define([
   , playing: function() {
       var playingView = new PlayingView()
       app.wrapper.html(playingView.render().el)
+      playingView.start()
     }
 
   , go: function(url) {

@@ -30,18 +30,27 @@ body
   box-sizing: border-box
   height: 714rem
   padding: 12rem 0 10rem
-  border-top: 4rem solid #bcd9d9
-  border-radius: 16rem
+  border-top: 10rem solid #bcd9d9
+  border-radius: 20rem
   overflow: hidden
+  position: relative
+  .bg .bg-tile
+    height: 159rem
+    width: 106rem
+    border-radius: 10rem
+    background: #bbd9d9
+    position: relative
+    float: left
+    margin: 10rem 0 0 22rem
 
 .tile
   height: 159rem
   width: 106rem
   background: #ffcc66
-  border-radius: 6rem
-  position: relative
+  border-radius: 10rem
   overflow: hidden
-  margin: 10rem 22rem
+  position: absolute
+  z-index: 5
   .number
     width: 100%
     height: @height
@@ -52,7 +61,6 @@ body
     position: absolute
     text-align: center
     top: -10rem
-    padding-top: 10rem
     background: #feffff
     color: #000
   &.num-1
