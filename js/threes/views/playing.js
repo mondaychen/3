@@ -18,6 +18,7 @@ define([
   var PlayingView = Backbone.View.extend({
     id: "playing-view"
   , initialize: function() {
+      this.tiles = []
     }
   , render: function() {
       this.plate = $('<div class="plate"></div>').appendTo(this.$el)
@@ -31,16 +32,30 @@ define([
       return this
     }
   , start: function() {
-      var tile1 = new TileView(this.plate, 1)
-      this.plate.append(tile1.render().el)
-      tile1.setPosition(1,1)
-      _.delay(function() {
-        tile1.setPosition(1,2)
-      }, 1500)
       var swiper = new Swiper().wake()
-      swiper.on('move swipe', function() {
-        console.log(arguments)
-      })
+      swiper.on('move', function(direction, distance) {
+        _.each(this.tiles, function(tile) {
+          var position = tile.getPosition()
+          if(direction === 'up' || direction === 'down') {
+            position.top -= distance
+          }
+          if(direction === 'left' || direction === 'right') {
+            position.left += distance
+          }
+          tile.$el.css(position)
+        })
+      }, this)
+      this.addTile(1)
+    }
+  , addTile: function(number) {
+      var tile = new TileView(this.plate, number)
+      this.plate.append(tile.render().el)
+      tile.setPosition(1,1)
+      this.tiles.push(tile)
+
+      _.delay(function() {
+        tile.setPosition(1,2)
+      },1000)
     }
   })
 

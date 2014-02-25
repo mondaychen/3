@@ -24,17 +24,30 @@ define([
       this.$el.addClass('num-' + number)
       this.numberContainer.html(number)
     }
+  , updatePosition: function(refresh) {
+      this.$el.addClass('animated')
+      this.$el.css(this.getPosition(refresh))
+      this.$el.removeClass('animated')
+    }
   , setPosition: function(x, y) {
       this.x = x
       this.y = y
-      var eq = (x - 1) * 4 + y - 1
+      this.updatePosition(true)
+    }
+  , getPosition: function(refresh) {
+      if(!refresh && this._position) {
+        // return cached position
+        return _.clone(this._position)
+      }
+      var eq = (this.x - 1) * 4 + this.y - 1
       var position = this.bgTiles.eq(eq).offset()
       var offset = this.plate.offset()
-      this.$el.css({
+      this._position = {
         top: position.top - offset.top
           - parseFloat(this.plate.css('border-top-width'))
       , left: position.left - offset.left
-      })
+      }
+      return _.clone(this._position)
     }
   })
 
