@@ -4,7 +4,8 @@ define([
 , 'backbone'
 , 'threes/app'
 , 'threes/views/tile'
-], function($, _, Backbone, app, TileView) {
+, 'threes/modules/swiper'
+], function($, _, Backbone, app, TileView, Swiper) {
 
   function multiplyStr (str, times) {
     var result = ''
@@ -36,6 +37,10 @@ define([
       _.delay(function() {
         tile1.setPosition(1,2)
       }, 1500)
+      var swiper = new Swiper().wake()
+      swiper.on('move swipe', function() {
+        console.log(arguments)
+      })
     }
   })
 
