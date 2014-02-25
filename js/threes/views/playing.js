@@ -39,19 +39,17 @@ define([
         })
       }, this)
       .on('swipe', function(direction, forward){
-
-      })
+        _.each(this.tiles, function(tile) {
+          tile.move(direction, !forward)
+        })
+      }, this)
       this.addTile(1)
     }
   , addTile: function(number) {
       var tile = new TileView(this.plate, number)
       this.plate.append(tile.render().el)
-      tile.setPosition(1,1)
+      tile.setPosition(2,1)
       this.tiles.push(tile)
-
-      _.delay(function() {
-        tile.setPosition(1,2)
-      },1000)
     }
   })
 

@@ -32,16 +32,17 @@ define([
       this.$el.addClass('num-' + number)
       this.numberContainer.html(number)
     }
+  , setPosition: function(m, n) {
+      this.m = m || this.m
+      this.n = n || this.n
+      this.updatePosition(true)
+    }
   , updatePosition: function(refresh) {
       this.$el.animatedCSS(this.getPosition(refresh), {
         time: 0.2
       , timing: 'linear'
       })
-    }
-  , setPosition: function(m, n) {
-      this.m = m
-      this.n = n
-      this.updatePosition(true)
+      console.log('update')
     }
   , getPosition: function(refresh) {
       if(!refresh && this._position) {
@@ -60,10 +61,7 @@ define([
     }
   , preview: function(direction, distance) {
       var position = this.getPosition()
-      // walls
-      var wallValue = walls[direction][0]
-      var wallName = walls[direction][1]
-      if(wallValue === this[wallName]) {
+      if(this.checkWalls(direction)) {
         return
       }
       if(direction === 'up' || direction === 'down') {
@@ -73,6 +71,29 @@ define([
         position.left += distance
       }
       this.$el.css(position)
+    }
+  , move: function(direction, canceled) {
+      if(this.checkWalls(direction)) {
+        return
+      }
+      if(canceled) {
+        this.updatePosition()
+        return
+      }
+      switch (direction) {
+        case 'up':    this.m--; break;
+        case 'right': this.n++; break;
+        case 'down':  this.m++; break;
+        case 'left':  this.n--; break;
+        default: break;
+      }
+      this.setPosition()
+    }
+  , checkWalls: function(direction) {
+      // walls
+      var wallValue = walls[direction][0]
+      var wallName = walls[direction][1]
+      return wallValue === this[wallName]
     }
   })
 
