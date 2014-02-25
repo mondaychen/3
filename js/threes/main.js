@@ -23,7 +23,8 @@ define([
       function fixRootEm () {
         var viewHeight = win.height()
         var viewWidth = win.width()
-        app.ratio = Math.min(viewHeight/blueprint.height, viewWidth/blueprint.width)
+        app.ratio = Math.min(viewHeight/blueprint.height
+          , viewWidth/blueprint.width)
         root.css('font-size', app.ratio+'px')
       }
       fixRootEm()
