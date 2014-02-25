@@ -2,8 +2,9 @@ define([
   'jquery'
 , 'underscore'
 , 'backbone'
+, 'mod/jquery.animatedCSS'
 , 'threes/app'
-], function($, _, Backbone, app) {
+], function($, _, Backbone, animatedCSS, app) {
 
   var TileView = Backbone.View.extend({
     className: "tile"
@@ -25,9 +26,10 @@ define([
       this.numberContainer.html(number)
     }
   , updatePosition: function(refresh) {
-      this.$el.addClass('animated')
-      this.$el.css(this.getPosition(refresh))
-      this.$el.removeClass('animated')
+      this.$el.animatedCSS(this.getPosition(refresh), {
+        time: 0.2
+      , timing: 'linear'
+      })
     }
   , setPosition: function(x, y) {
       this.x = x

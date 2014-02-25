@@ -1,7 +1,8 @@
 require.config({
   baseUrl: "./bower_components/"
 , aliases: {
-    'threes': '../js/threes/'
+    'mod': '../js/mod/'
+  , 'threes': '../js/threes/'
   }
 })
 
