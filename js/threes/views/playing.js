@@ -3,7 +3,8 @@ define([
 , 'underscore'
 , 'backbone'
 , 'threes/app'
-], function($, _, Backbone, app) {
+, 'threes/views/tile'
+], function($, _, Backbone, app, TileView) {
 
   function multiplyStr (str, times) {
     var result = ''
@@ -29,25 +30,12 @@ define([
       return this
     }
   , start: function() {
-      this.plate.append(this.makeTile(1))
-      this.setPosition(this.plate.find('.tile:eq(0)'), 1, 1)
-    }
-  , makeTile: function(num){
-      var tile = $('<div class="tile"></div>')
-      tile.addClass('num-' + num)
-      tile.append('<div class="number">' + num + '</div>' )
-      return tile
-    }
-  , setPosition: function(tile, x, y) {
-      var eq = (x - 1) * 4 + y - 1
-      var targetBGTile = this.plate.find('.bg-tile').eq(eq)
-      var position = targetBGTile.offset()
-      var offset = this.plate.offset()
-      tile.css({
-        top: position.top - offset.top
-          - parseFloat(this.plate.css('border-top-width'))
-      , left: position.left - offset.left
-      })
+      var tile1 = new TileView(this.plate, 1)
+      this.plate.append(tile1.render().el)
+      tile1.setPosition(1,1)
+      _.delay(function() {
+        tile1.setPosition(1,2)
+      }, 1500)
     }
   })
 
