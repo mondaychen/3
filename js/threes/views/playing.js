@@ -35,16 +35,12 @@ define([
       var swiper = new Swiper().wake()
       swiper.on('move', function(direction, distance) {
         _.each(this.tiles, function(tile) {
-          var position = tile.getPosition()
-          if(direction === 'up' || direction === 'down') {
-            position.top -= distance
-          }
-          if(direction === 'left' || direction === 'right') {
-            position.left += distance
-          }
-          tile.$el.css(position)
+          tile.preview(direction, distance)
         })
       }, this)
+      .on('swipe', function(direction, forward){
+
+      })
       this.addTile(1)
     }
   , addTile: function(number) {

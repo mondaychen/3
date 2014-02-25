@@ -6,6 +6,13 @@ define([
 , 'threes/app'
 ], function($, _, Backbone, animatedCSS, app) {
 
+  var walls = {
+    up: [1, 'm']
+  , right: [4, 'n']
+  , down: [4, 'm']
+  , left: [1, 'n']
+  }
+
   var TileView = Backbone.View.extend({
     className: "tile"
   , initialize: function(plate, number) {
@@ -31,9 +38,9 @@ define([
       , timing: 'linear'
       })
     }
-  , setPosition: function(x, y) {
-      this.x = x
-      this.y = y
+  , setPosition: function(m, n) {
+      this.m = m
+      this.n = n
       this.updatePosition(true)
     }
   , getPosition: function(refresh) {
@@ -41,7 +48,7 @@ define([
         // return cached position
         return _.clone(this._position)
       }
-      var eq = (this.x - 1) * 4 + this.y - 1
+      var eq = (this.m - 1) * 4 + this.n - 1
       var position = this.bgTiles.eq(eq).offset()
       var offset = this.plate.offset()
       this._position = {
@@ -50,6 +57,22 @@ define([
       , left: position.left - offset.left
       }
       return _.clone(this._position)
+    }
+  , preview: function(direction, distance) {
+      var position = this.getPosition()
+      // walls
+      var wallValue = walls[direction][0]
+      var wallName = walls[direction][1]
+      if(wallValue === this[wallName]) {
+        return
+      }
+      if(direction === 'up' || direction === 'down') {
+        position.top -= distance
+      }
+      if(direction === 'left' || direction === 'right') {
+        position.left += distance
+      }
+      this.$el.css(position)
     }
   })
 
