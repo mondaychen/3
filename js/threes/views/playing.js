@@ -48,7 +48,9 @@ define([
     }
   , addTiles: function() {
       this.tiles = new TilesCollection([], {plate: this.plate})
-      this.tiles.addOne(3, 2, 2)
+      this.tiles.addOne(3, 1, 1)
+      this.tiles.addOne(3, 1, 2)
+      this.tiles.addOne(1, 2, 1)
     }
   })
 
