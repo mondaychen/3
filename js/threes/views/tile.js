@@ -15,27 +15,24 @@ define([
 
   var TileView = Backbone.View.extend({
     className: "tile"
-  , initialize: function(plate, number) {
-      this.plate = plate
-      this.number = number || 1
-      this.bgTiles = plate.find('.bg-tile')
+  , initialize: function(options) {
+      this.plate = options.plate
+      this.bgTiles = this.plate.find('.bg-tile')
+
+      this.model.on('change:m change:n', function() {
+        this.updatePosition(true)
+      }, this)
     }
   , render: function() {
       this.numberContainer = $('<div class="number"></div>' )
         .appendTo(this.$el)
-      this.setNumber(this.number)
 
-      return this
-    }
-  , setNumber: function(number) {
-      this.number = number
+      var number = this.model.get('number')
       this.$el.addClass('num-' + number)
       this.numberContainer.html(number)
-    }
-  , setPosition: function(m, n) {
-      this.m = m || this.m
-      this.n = n || this.n
       this.updatePosition(true)
+
+      return this
     }
   , updatePosition: function(refresh) {
       this.$el.animatedCSS(this.getPosition(refresh), {
@@ -48,7 +45,7 @@ define([
         // return cached position
         return _.clone(this._position)
       }
-      var eq = (this.m - 1) * 4 + this.n - 1
+      var eq = (this.model.get('m') - 1) * 4 + this.model.get('n') - 1
       var bgPos = this.bgTiles.eq(eq).offset()
       var offset = this.plate.offset()
       this._position = {
@@ -89,20 +86,13 @@ define([
         this.updatePosition()
         return
       }
-      switch (direction) {
-        case 'up':    this.m--; break;
-        case 'right': this.n++; break;
-        case 'down':  this.m++; break;
-        case 'left':  this.n--; break;
-        default: break;
-      }
-      this.setPosition()
+      this.model.move(direction)
     }
   , checkWalls: function(direction) {
       // walls
       var wallValue = walls[direction][0]
       var wallName = walls[direction][1]
-      return wallValue === this[wallName]
+      return wallValue === this.model.get(wallName)
     }
   })
 

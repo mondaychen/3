@@ -3,9 +3,9 @@ define([
 , 'underscore'
 , 'backbone'
 , 'threes/app'
-, 'threes/views/tile'
+, 'threes/collections/tiles'
 , 'threes/modules/swiper'
-], function($, _, Backbone, app, TileView, Swiper) {
+], function($, _, Backbone, app, TilesCollection, Swiper) {
 
   function multiplyStr (str, times) {
     var result = ''
@@ -32,24 +32,23 @@ define([
       return this
     }
   , start: function() {
+      var self = this
       var swiper = new Swiper().wake()
       swiper.on('move', function(direction, distance) {
-        _.each(this.tiles, function(tile) {
-          tile.preview(direction, distance)
+        self.tiles.each(function(tileModel) {
+          tileModel.view.preview(direction, distance)
         })
       }, this)
       .on('swipe', function(direction, forward){
-        _.each(this.tiles, function(tile) {
-          tile.move(direction, !forward)
+        self.tiles.each(function(tileModel) {
+          tileModel.view.move(direction, !forward)
         })
       }, this)
-      this.addTile(1)
+      this.addTiles()
     }
-  , addTile: function(number) {
-      var tile = new TileView(this.plate, number)
-      this.plate.append(tile.render().el)
-      tile.setPosition(2,1)
-      this.tiles.push(tile)
+  , addTiles: function() {
+      this.tiles = new TilesCollection([], {plate: this.plate})
+      this.tiles.addOne(3, 2, 2)
     }
   })
 
