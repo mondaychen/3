@@ -4,119 +4,8 @@ define([
 , 'backbone'
 , 'threes/app'
 , 'threes/models/tile'
-], function($, _, Backbone, app, TileModel) {
-
-  var defaults = {
-    conflictTest: $.noop
-  }
-
-  var MatrixManager = function(row, column, config) {
-    this.row = row
-    this.column = column
-    this.settings = _.extend(defaults, config)
-    this.matrix = []
-
-    var emptyRow = []
-    _.times(column, function(n) {
-      emptyRow.push(null)
-    })
-    _.times(row, function(n) {
-      this.matrix.push(_.clone(emptyRow))
-    }, this)
-
-    this.resetCache()
-  }
-
-  _.extend(MatrixManager.prototype, Backbone.Events, {
-    resetCache: function() {
-      this._movables = {}
-    }
-  , set: function(model, m, n, replace) {
-      if(m >= this.row || n >= this.column) {
-        return false
-      }
-      if(!replace && this.matrix[m][n]) {
-        return false
-      }
-      this.matrix[m][n] = model
-      return model
-    }
-  , getAt: function(m, n) {
-      return this.matrix[m][n]
-    }
-  , getMovables: function(direction, refresh) {
-      if(refresh) {
-        this.resetCache()
-      }
-      if(this._movables[direction]) {
-        return this._movables[direction]
-      }
-      var self = this
-      var matrix = this.matrix
-      var conflictTest = self.settings.conflictTest
-      var movables = []
-
-      if(direction === 'up' || direction === 'down') {
-        var reduceMethod = direction === 'up' ? 'reduce' : 'reduceRight'
-        var firstRow = direction === 'up' ? 0 : self.row - 1
-        _[reduceMethod](matrix, function(memo, row, rowIdx) {
-          memo = _.clone(memo)
-          if(rowIdx === firstRow) {
-            return row
-          }
-          _.each(row, function(model, columnIdx) {
-            var canMove = conflictTest(model, memo[columnIdx])
-            memo[columnIdx] = model && (canMove ? null : model)
-            if(model && canMove) {
-              movables.push(model)
-            }
-          })
-          return memo
-        }, [])
-      } else {
-        var reduceMethod = direction === 'left' ? 'reduce' : 'reduceRight'
-        var firstIdx = direction === 'left' ? 0 : self.column - 1
-        _.each(matrix, function(row, rowIdx) {
-          _[reduceMethod](row, function(memo, model, columnIdx) {
-            if(columnIdx === firstIdx) {
-              return model
-            }
-            var canMove = conflictTest(model, memo)
-            if(model && canMove) {
-              movables.push(model)
-            }
-            return canMove ? null : model
-          }, null)
-        })
-      }
-      return this._movables[direction] = movables
-    }
-  , doMove: function(direction) {
-      var self = this
-      _.each(this.getMovables(direction), function(model) {
-        var m = model.get('m')
-        var n = model.get('n')
-        self.set(null, m, n, true)
-
-        switch (direction) {
-          case 'up':    m--; break;
-          case 'right': n++; break;
-          case 'down':  m++; break;
-          case 'left':  n--; break;
-          default: break;
-        }
-        var toBeMerged = self.getAt(m, n)
-        if(toBeMerged) {
-          model.merge(toBeMerged)
-        } else {
-          model.moveTo(m, n)
-        }
-        self.set(model, m, n, true)
-      })
-
-      this.resetCache()
-    }
-  })
+, 'threes/modules/matrix_manager'
+], function($, _, Backbone, app, TileModel, MatrixManager) {
 
   var Tiles = Backbone.Collection.extend({
     model: TileModel
@@ -139,9 +28,11 @@ define([
           return false
         }
       })
-      this.matrixManager.on('merge', function(m1, m2) {
-        m1.trigger('merged', m2.get('number'))
-        m2.destroy()
+      this.matrixManager.on('model:merge', function(model, toBeMerged) {
+        model.merge(toBeMerged)
+      })
+      this.matrixManager.on('model:moveTo', function(model, m, n) {
+        model.moveTo(m, n)
       })
 
       this.on('add', function(model) {
