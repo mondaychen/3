@@ -6,7 +6,7 @@
   }
 }(function ($) {
 
-  var defaultTransition = 'all 0 ease 0';
+  var defaultTransitionValue = 'all 0 ease 0';
 
   var defaults = {
     duration: 0,
@@ -16,7 +16,7 @@
     prefixes: ['-webkit-', '']
   };
 
-  $.fn.animatedCSS = function (styles, options) {
+  $.fn.transition = function (styles, options) {
     // init setttings
     styles = styles || {};
     var settings = $.extend( {}, defaults, options );
@@ -37,9 +37,8 @@
       return [ prop, settings.duration + 's',
         settings.timing, settings.delay ].join(' ');
     }).join(',');
-    console.log(transitionValues)
     $.each(settings.prefixes, function(idx, prefix) {
-      resetCSS[prefix + 'transition'] = defaultTransition;
+      resetCSS[prefix + 'transition'] = defaultTransitionValue;
       transitionCSS[prefix + 'transition'] = transitionValues;
     });
     $this.css(transitionCSS).css(styles);
@@ -49,9 +48,8 @@
     }, settings.duration * 1000);
   };
 
-  var animatedCSS = function () {
-    $.fn.animatedCSS.apply(arguments[0],
+  return function () {
+    $.fn.transition.apply(arguments[0],
       Array.prototype.slice.call(arguments, 1))
   };
-  return animatedCSS
 }));

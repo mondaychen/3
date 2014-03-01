@@ -2,9 +2,9 @@ define([
   'jquery'
 , 'underscore'
 , 'backbone'
-, 'mod/jquery.animatedCSS'
+, 'mod/jquery.transition'
 , 'threes/app'
-], function($, _, Backbone, animatedCSS, app) {
+], function($, _, Backbone, transition, app) {
 
   var walls = {
     up: [1, 'm']
@@ -35,7 +35,7 @@ define([
       return this
     }
   , updatePosition: function(refresh) {
-      this.$el.animatedCSS(this.getPosition(refresh), {
+      this.$el.transition(this.getPosition(refresh), {
         duration: 0.2
       , timing: 'linear'
       })
