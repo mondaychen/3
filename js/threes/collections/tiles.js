@@ -14,6 +14,7 @@ define([
     this.row = row
     this.column = column
     this.settings = _.extend(defaults, config)
+    this.matrix = []
 
     var emptyRow = []
     _.times(column, function(n) {
@@ -110,7 +111,7 @@ define([
       })
 
       this.on('add', function(model) {
-        this.matrixManager.set(model, model.get('m') - 1, model.get('n') - 1)
+        this.matrixManager.set(model, model.get('m'), model.get('n'))
       }, this)
     }
   , addOne: function(number, m, n, direction) {

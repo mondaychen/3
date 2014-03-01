@@ -6,13 +6,6 @@ define([
 , 'threes/app'
 ], function($, _, Backbone, transition, app) {
 
-  var walls = {
-    up: [1, 'm']
-  , right: [4, 'n']
-  , down: [4, 'm']
-  , left: [1, 'n']
-  }
-
   var TileView = Backbone.View.extend({
     className: "tile"
   , initialize: function(options) {
@@ -45,7 +38,7 @@ define([
         // return cached position
         return _.clone(this._position)
       }
-      var eq = (this.model.get('m') - 1) * 4 + this.model.get('n') - 1
+      var eq = this.model.get('m') * 4 + this.model.get('n')
       var bgPos = this.bgTiles.eq(eq).offset()
       var offset = this.plate.offset()
       this._position = {
@@ -74,12 +67,6 @@ define([
           break;
       }
       this.$el.css(position)
-    }
-  , checkWalls: function(direction) {
-      // walls
-      var wallValue = walls[direction][0]
-      var wallName = walls[direction][1]
-      return wallValue === this.model.get(wallName)
     }
   })
 
