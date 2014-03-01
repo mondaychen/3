@@ -29,18 +29,18 @@
     var $this = $(this);
 
     // variables
-    var transitionValues = [];
     var resetCSS = {};
     var transitionCSS = {};
     var props = settings.property || styles;
 
-    $.each(props, function(prop) {
-      transitionValues.push( [ prop, settings.duration + 's',
-        settings.timing, settings.delay ].join(' ') )
-    });
+    var transitionValues = $.map(props, function(value, prop) {
+      return [ prop, settings.duration + 's',
+        settings.timing, settings.delay ].join(' ');
+    }).join(',');
+    console.log(transitionValues)
     $.each(settings.prefixes, function(idx, prefix) {
       resetCSS[prefix + 'transition'] = defaultTransition;
-      transitionCSS[prefix + 'transition'] = transitionValues.join(',')
+      transitionCSS[prefix + 'transition'] = transitionValues;
     });
     $this.css(transitionCSS).css(styles);
     // set back to default

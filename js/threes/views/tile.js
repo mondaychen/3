@@ -36,7 +36,7 @@ define([
     }
   , updatePosition: function(refresh) {
       this.$el.animatedCSS(this.getPosition(refresh), {
-        time: 0.2
+        duration: 0.2
       , timing: 'linear'
       })
     }
