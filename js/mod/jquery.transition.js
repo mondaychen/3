@@ -6,7 +6,7 @@
   }
 }(function ($) {
 
-  var defaultTransitionValue = 'all 0 ease 0';
+  var initialValue = 'all 0 ease 0';
 
   var defaults = {
     duration: 0,
@@ -33,9 +33,9 @@
         settings.timing, settings.delay ].join(' ');
     }).join(',');
     $this.css('transition', transitionValues).css(styles);
-    // set back to default
+    // set back to initial value
     setTimeout(function() {
-      $this.css('transition', defaultTransitionValue);
+      $this.css('transition', initialValue);
     }, settings.duration * 1000);
   };
 
