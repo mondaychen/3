@@ -96,7 +96,7 @@ define([
         }
         var toBeMerged = self.getAt(m, n)
         if(toBeMerged) {
-          model.merge(toBeMerged, direction)
+          model.merge(toBeMerged)
         } else {
           model.moveTo(m, n)
         }
@@ -134,6 +134,10 @@ define([
       this.on('add', function(model) {
         this.matrixManager.set(model, model.get('m'), model.get('n'))
       }, this)
+      this.on('move:done', function() {
+        // this means the animation is done
+        app.trigger('swiper:unfreeze')
+      })
     }
   , addOne: function(number, m, n, direction) {
       var model = new this.model({
@@ -150,12 +154,17 @@ define([
       })
     }
   , move: function(direction, canceled) {
+      var movables = this.matrixManager.getMovables(direction)
+      if(!movables.length) {
+        return
+      }
       if(canceled) {
-        this.each(function(model) {
+        _.each(movables, function(model) {
           model.trigger('change_back')
         })
         return
       }
+      app.trigger('swiper:freeze')
       this.matrixManager.doMove(direction)
     }
   })

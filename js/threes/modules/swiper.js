@@ -31,12 +31,17 @@ define([
 
   _.extend(Swiper.prototype, Backbone.Events, {
     wake: function() {
+      if(this._isAwake) {
+        return this
+      }
       body.on(events.start + '.swiper', this._onStart)
       body.on(events.end + '.swiper', this._onEnd)
+      this._isAwake = true
       return this
     }
   , sleep: function() {
       body.off('.swiper')
+      this._isAwake = false
       return this
     }
   , _onStart: function(e) {

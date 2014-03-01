@@ -20,9 +20,14 @@ define([
       this.model.on('change_back', function() {
         this.updatePosition(false)
       }, this)
+      this.model.on('change:number', function() {
+        this.render()
+      }, this)
       this.model.on('destroy', function() {
         this.$el.remove()
       }, this)
+
+      _.bindAll(this, 'render', 'updatePosition')
     }
   , render: function() {
       this.numberContainer = $('<div class="number"></div>' )
@@ -44,7 +49,7 @@ define([
       if(refresh) {
         _.delay(function() {
           self.trigger('move:done')
-        }, duration)
+        }, duration * 1000)
       }
     }
   , getPosition: function(refresh) {

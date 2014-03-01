@@ -23,11 +23,14 @@ define([
       })
       this.view = view
       this.plate.append(view.render().el)
+      this.view.on('move:done', function() {
+        this.trigger('move:done')
+      }, this)
     }
   , moveTo: function(m, n) {
       this.set({m: m, n: n})
     }
-  , merge: function(toBeMerged, direction) {
+  , merge: function(toBeMerged) {
       var self = this
       var num = this.get('number') + toBeMerged.get('number')
       this.moveTo(toBeMerged.get('m'), toBeMerged.get('n'))
