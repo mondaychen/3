@@ -19,7 +19,6 @@ define([
     _.times(column, function(n) {
       emptyRow.push(null)
     })
-    window.max = this.matrix = []
     _.times(row, function(n) {
       this.matrix.push(_.clone(emptyRow))
     }, this)

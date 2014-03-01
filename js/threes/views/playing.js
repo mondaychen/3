@@ -40,8 +40,11 @@ define([
       .on('swipe', function(direction, forward){
         self.tiles.move(direction, !forward)
       }, this)
-      app.on('page_change', function() {
+      app.on('page_change freeze', function() {
         swiper.sleep()
+      })
+      app.on('unfreeze', function() {
+        swiper.wake()
       })
       this.addTiles()
     }
