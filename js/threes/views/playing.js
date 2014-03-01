@@ -44,6 +44,9 @@ define([
           tileModel.view.move(direction, !forward)
         })
       }, this)
+      app.on('page_change', function() {
+        swiper.sleep()
+      })
       this.addTiles()
     }
   , addTiles: function() {

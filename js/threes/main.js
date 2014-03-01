@@ -63,6 +63,9 @@ define([
       router: new AppRouter()
     })
     Backbone.history.start({pushState: false})
+    Backbone.history.on('all', function() {
+      app.trigger('page_change')
+    })
   }
 
   return {
