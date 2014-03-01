@@ -6,8 +6,6 @@ define([
 , 'threes/app'
 ], function($, _, Backbone, transition, app) {
 
-  var duration = 0.2
-
   var TileView = Backbone.View.extend({
     className: "tile"
   , initialize: function(options) {
@@ -36,17 +34,27 @@ define([
       var number = this.model.get('number')
       this.$el.addClass('num-' + number)
       this.numberContainer.html(number)
-      this.updatePosition(true)
+      this.updatePosition(false)
 
       return this
     }
-  , updatePosition: function(refresh) {
+  , updatePosition: function(isMoving) {
       var self = this
-      this.$el.transition(this.getPosition(refresh), {
+      var duration = 0
+      var pos = this.getPosition(isMoving)
+      if(isMoving) {
+        var currentTop = parseFloat(this.$el.css('top') || 0)
+        var currentLeft = parseFloat(this.$el.css('left') || 0)
+        var sum = Math.abs((currentLeft - pos.left)/this.$el.width()
+          + (currentTop - pos.top)/this.$el.height())
+        console.log(sum)
+        duration = 0.2 * sum / 2.31
+      }
+      this.$el.transition(this.getPosition(isMoving), {
         duration: duration
       , timing: 'linear'
       })
-      if(refresh) {
+      if(isMoving) {
         _.delay(function() {
           self.trigger('move:done')
         }, duration * 1000)

@@ -45,7 +45,9 @@ define([
       app.on('swiper:unfreeze', function() {
         swiper.wake()
       })
-      this.addTiles()
+      _.delay(function() {
+        self.addTiles()
+      }, 200)
     }
   , addTiles: function() {
       this.tiles = new TilesCollection([], {plate: this.plate})
