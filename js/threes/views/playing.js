@@ -18,7 +18,6 @@ define([
   var PlayingView = Backbone.View.extend({
     id: "playing-view"
   , initialize: function() {
-      this.tiles = []
     }
   , render: function() {
       this.plate = $('<div class="plate"></div>').appendTo(this.$el)
@@ -41,11 +40,9 @@ define([
         self.tiles.move(direction, !forward)
       }, this)
       app.on('page_change swiper:freeze', function() {
-        console.log('sleep')
         swiper.sleep()
       })
       app.on('swiper:unfreeze', function() {
-        console.log('wake')
         swiper.wake()
       })
       this.addTiles()

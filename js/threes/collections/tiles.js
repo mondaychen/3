@@ -23,10 +23,15 @@ define([
     _.times(row, function(n) {
       this.matrix.push(_.clone(emptyRow))
     }, this)
+
+    this.resetCache()
   }
 
   _.extend(MatrixManager.prototype, Backbone.Events, {
-    set: function(model, m, n, replace) {
+    resetCache: function() {
+      this._movables = {}
+    }
+  , set: function(model, m, n, replace) {
       if(m >= this.row || n >= this.column) {
         return false
       }
@@ -39,7 +44,13 @@ define([
   , getAt: function(m, n) {
       return this.matrix[m][n]
     }
-  , getMovables: function(direction) {
+  , getMovables: function(direction, refresh) {
+      if(refresh) {
+        this.resetCache()
+      }
+      if(this._movables[direction]) {
+        return this._movables[direction]
+      }
       var self = this
       var matrix = this.matrix
       var conflictTest = self.settings.conflictTest
@@ -78,7 +89,7 @@ define([
           }, null)
         })
       }
-      return movables
+      return this._movables[direction] = movables
     }
   , doMove: function(direction) {
       var self = this
@@ -102,6 +113,8 @@ define([
         }
         self.set(model, m, n, true)
       })
+
+      this.resetCache()
     }
   })
 
