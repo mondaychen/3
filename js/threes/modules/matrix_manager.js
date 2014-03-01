@@ -43,10 +43,7 @@ define([
   , getAt: function(m, n) {
       return this.matrix[m][n]
     }
-  , getMovables: function(direction, refresh) {
-      if(refresh) {
-        this.resetCache()
-      }
+  , getMovables: function(direction) {
       if(this._movables[direction]) {
         return this._movables[direction]
       }
