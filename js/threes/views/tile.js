@@ -6,14 +6,22 @@ define([
 , 'threes/app'
 ], function($, _, Backbone, transition, app) {
 
+  var duration = 0.2
+
   var TileView = Backbone.View.extend({
     className: "tile"
   , initialize: function(options) {
       this.plate = options.plate
       this.bgTiles = this.plate.find('.bg-tile')
 
-      this.model.on('change:m change:n change_back', function() {
+      this.model.on('change:m change:n', function() {
         this.updatePosition(true)
+      }, this)
+      this.model.on('change_back', function() {
+        this.updatePosition(false)
+      }, this)
+      this.model.on('destroy', function() {
+        this.$el.remove()
       }, this)
     }
   , render: function() {
@@ -28,10 +36,16 @@ define([
       return this
     }
   , updatePosition: function(refresh) {
+      var self = this
       this.$el.transition(this.getPosition(refresh), {
-        duration: 0.2
+        duration: duration
       , timing: 'linear'
       })
+      if(refresh) {
+        _.delay(function() {
+          self.trigger('move:done')
+        }, duration)
+      }
     }
   , getPosition: function(refresh) {
       if(!refresh && this._position) {

@@ -81,6 +81,27 @@ define([
       return movables
     }
   , doMove: function(direction) {
+      var self = this
+      _.each(this.getMovables(direction), function(model) {
+        var m = model.get('m')
+        var n = model.get('n')
+        self.set(null, m, n, true)
+
+        switch (direction) {
+          case 'up':    m--; break;
+          case 'right': n++; break;
+          case 'down':  m++; break;
+          case 'left':  n--; break;
+          default: break;
+        }
+        var toBeMerged = self.getAt(m, n)
+        if(toBeMerged) {
+          model.merge(toBeMerged, direction)
+        } else {
+          model.moveTo(m, n)
+        }
+        self.set(model, m, n, true)
+      })
     }
   })
 
@@ -129,10 +150,13 @@ define([
       })
     }
   , move: function(direction, canceled) {
-      var movables = this.matrixManager.getMovables(direction)
-      _.each(movables, function(model) {
-        model.move(direction, canceled)
-      })
+      if(canceled) {
+        this.each(function(model) {
+          model.trigger('change_back')
+        })
+        return
+      }
+      this.matrixManager.doMove(direction)
     }
   })
 

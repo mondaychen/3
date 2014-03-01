@@ -24,21 +24,17 @@ define([
       this.view = view
       this.plate.append(view.render().el)
     }
-  , move: function(direction, canceled) {
-      if(canceled) {
-        this.trigger('change_back')
-        return
-      }
-      var m = this.get('m')
-      var n = this.get('n')
-      switch (direction) {
-        case 'up':    m--; break;
-        case 'right': n++; break;
-        case 'down':  m++; break;
-        case 'left':  n--; break;
-        default: break;
-      }
+  , moveTo: function(m, n) {
       this.set({m: m, n: n})
+    }
+  , merge: function(toBeMerged, direction) {
+      var self = this
+      var num = this.get('number') + toBeMerged.get('number')
+      this.moveTo(toBeMerged.get('m'), toBeMerged.get('n'))
+      this.view.once('move:done', function() {
+        toBeMerged.destroy()
+        self.set('number', num)
+      })
     }
   })
 
