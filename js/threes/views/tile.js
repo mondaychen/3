@@ -19,7 +19,7 @@ define([
       this.plate = options.plate
       this.bgTiles = this.plate.find('.bg-tile')
 
-      this.model.on('change:m change:n', function() {
+      this.model.on('change:m change:n change_back', function() {
         this.updatePosition(true)
       }, this)
     }
@@ -57,9 +57,6 @@ define([
     }
   , preview: function(direction, distance) {
       var position = this.getPosition()
-      if(this.checkWalls(direction)) {
-        return
-      }
       switch (direction) {
         case 'up':
           position.top -= Math.min(this.$el.height(), distance)
@@ -77,16 +74,6 @@ define([
           break;
       }
       this.$el.css(position)
-    }
-  , move: function(direction, canceled) {
-      if(this.checkWalls(direction)) {
-        return
-      }
-      if(canceled) {
-        this.updatePosition()
-        return
-      }
-      this.model.move(direction)
     }
   , checkWalls: function(direction) {
       // walls

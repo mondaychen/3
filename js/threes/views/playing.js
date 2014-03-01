@@ -35,14 +35,10 @@ define([
       var self = this
       var swiper = new Swiper().wake()
       swiper.on('move', function(direction, distance) {
-        self.tiles.each(function(tileModel) {
-          tileModel.view.preview(direction, distance)
-        })
+        self.tiles.preview(direction, distance)
       }, this)
       .on('swipe', function(direction, forward){
-        self.tiles.each(function(tileModel) {
-          tileModel.view.move(direction, !forward)
-        })
+        self.tiles.move(direction, !forward)
       }, this)
       app.on('page_change', function() {
         swiper.sleep()

@@ -121,7 +121,18 @@ define([
       , n: n
       }, {plate: this.plate})
       this.add(model)
-      console.log(this.matrixManager.getMovables('left'))
+    }
+  , preview: function(direction, distance) {
+      var movables = this.matrixManager.getMovables(direction)
+      _.each(movables, function(model) {
+        model.view.preview(direction, distance)
+      })
+    }
+  , move: function(direction, canceled) {
+      var movables = this.matrixManager.getMovables(direction)
+      _.each(movables, function(model) {
+        model.move(direction, canceled)
+      })
     }
   })
 

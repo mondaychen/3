@@ -24,7 +24,11 @@ define([
       this.view = view
       this.plate.append(view.render().el)
     }
-  , move: function(direction) {
+  , move: function(direction, canceled) {
+      if(canceled) {
+        this.trigger('change_back')
+        return
+      }
       var m = this.get('m')
       var n = this.get('n')
       switch (direction) {
