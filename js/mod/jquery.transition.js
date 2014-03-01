@@ -12,8 +12,7 @@
     duration: 0,
     timing: 'ease',
     delay: 0,
-    property: null, // String or Array here
-    prefixes: ['-webkit-', '']
+    property: null // String or Array here
   };
 
   $.fn.transition = function (styles, options) {
@@ -25,31 +24,25 @@
       settings.property = $.isArray(_p) ? _p : [_p];
     }
 
-    // shortcuts
     var $this = $(this);
 
-    // variables
-    var resetCSS = {};
-    var transitionCSS = {};
+    // only pick the properties of the styles if not defined by user
     var props = settings.property || styles;
-
     var transitionValues = $.map(props, function(value, prop) {
       return [ prop, settings.duration + 's',
         settings.timing, settings.delay ].join(' ');
     }).join(',');
-    $.each(settings.prefixes, function(idx, prefix) {
-      resetCSS[prefix + 'transition'] = defaultTransitionValue;
-      transitionCSS[prefix + 'transition'] = transitionValues;
-    });
-    $this.css(transitionCSS).css(styles);
+    $this.css('transition', transitionValues).css(styles);
     // set back to default
     setTimeout(function() {
-      $this.css(resetCSS);
+      $this.css('transition', defaultTransitionValue);
     }, settings.duration * 1000);
   };
 
-  return function () {
+  $.transition = function () {
     $.fn.transition.apply(arguments[0],
       Array.prototype.slice.call(arguments, 1))
   };
+
+  return $.transition
 }));
