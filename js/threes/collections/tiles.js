@@ -36,7 +36,7 @@ define([
       this.matrix[m][n] = model
       return model
     }
-  , get: function(m, n) {
+  , getAt: function(m, n) {
       return this.matrix[m][n]
     }
   , getMovables: function(direction) {

@@ -6,21 +6,18 @@
   }
 }(function ($) {
 
-  var prefixes = ['-webkit-', ''];
-  var resetCSS = {};
   var defaultTransition = 'all 0 ease 0';
-  $.each(prefixes, function(idx, prefix) {
-    resetCSS[prefix + 'transition'] = defaultTransition;
-  })
 
   var defaults = {
-    time: 0,
+    duration: 0,
     timing: 'ease',
     delay: 0,
-    property: null // String or Array here
+    property: null, // String or Array here
+    prefixes: ['-webkit-', '']
   };
 
   $.fn.animatedCSS = function (styles, options) {
+    // init setttings
     styles = styles || {};
     var settings = $.extend( {}, defaults, options );
     var _p = settings.property; // for short
@@ -28,23 +25,28 @@
       settings.property = $.isArray(_p) ? _p : [_p];
     }
 
+    // shortcuts
     var $this = $(this);
 
+    // variables
     var transitionValues = [];
+    var resetCSS = {};
     var transitionCSS = {};
     var props = settings.property || styles;
+
     $.each(props, function(prop) {
-      transitionValues.push( [ prop, settings.time + 's',
+      transitionValues.push( [ prop, settings.duration + 's',
         settings.timing, settings.delay ].join(' ') )
     });
-    $.each(prefixes, function(idx, prefix) {
+    $.each(settings.prefixes, function(idx, prefix) {
+      resetCSS[prefix + 'transition'] = defaultTransition;
       transitionCSS[prefix + 'transition'] = transitionValues.join(',')
     });
     $this.css(transitionCSS).css(styles);
     // set back to default
     setTimeout(function() {
       $this.css(resetCSS);
-    }, settings.time * 1000);
+    }, settings.duration * 1000);
   };
 
   var animatedCSS = function () {
