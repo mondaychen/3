@@ -67,9 +67,9 @@ define([
       this.addNewTile()
     }
   , addNewTile: function(num, m, n) {
-      num = num || Math.ceil(Math.random() * this.getCurrentMax())
-      var usefulM = m || Math.floor(Math.random() * this.plateSize.row)
-      var usefulN = n || Math.floor(Math.random() * this.plateSize.column)
+      num = num || this.getRandomNumber()
+      var usefulM = m || _.random(this.plateSize.row - 1)
+      var usefulN = n || _.random(this.plateSize.column - 1)
       var success = this.tiles.addOne(num, usefulM, usefulN)
       if(success) {
         return true
@@ -79,11 +79,13 @@ define([
       }
       this.addNewTile(num)
     }
-  , getCurrentMax: function() {
+  , getRandomNumber: function() {
       var max = this.tiles.max(function(model) {
         return model.get('number')
-      }).get('number')
-      return Math.max(max, 3)
+      }).get('number') / 2
+      max = Math.max(max, 3)
+      var arr = [1, 2].concat(_.range(3, max + 1, 3))
+      return arr[_.random(arr.length - 1)]
     }
   })
 
