@@ -56,18 +56,33 @@ define([
         plate: this.plate
       , plateSize: this.plateSize
       })
+      this.addNewTile(1)
+      this.addNewTile(1)
+      this.addNewTile(2)
+      this.addNewTile(2)
+      this.addNewTile(3)
+      this.addNewTile(3)
+      this.addNewTile()
+      this.addNewTile()
       this.addNewTile()
     }
   , addNewTile: function(num, m, n) {
       num = num || Math.ceil(Math.random() * this.getCurrentMax())
-      m = m || Math.floor(Math.random() * this.plateSize.row)
-      n = n || Math.floor(Math.random() * this.plateSize.column)
-      this.tiles.addOne(num, m, n)
+      var usefulM = m || Math.floor(Math.random() * this.plateSize.row)
+      var usefulN = n || Math.floor(Math.random() * this.plateSize.column)
+      var success = this.tiles.addOne(num, usefulM, usefulN)
+      if(success) {
+        return true
+      }
+      if(m || n) {
+        return false
+      }
+      this.addNewTile(num)
     }
   , getCurrentMax: function() {
       var max = this.tiles.max(function(model) {
         return model.get('number')
-      })
+      }).get('number')
       return Math.max(max, 3)
     }
   })

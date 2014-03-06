@@ -45,12 +45,16 @@ define([
       })
     }
   , addOne: function(number, m, n, direction) {
+      if(this.matrixManager.getAt(m, n)) {
+        return false
+      }
       var model = new this.model({
         number: number
       , m: m
       , n: n
       }, {plate: this.plate})
       this.add(model)
+      return true
     }
   , preview: function(direction, distance) {
       var movables = this.matrixManager.getMovables(direction)
