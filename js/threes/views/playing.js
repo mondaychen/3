@@ -46,14 +46,22 @@ define([
         swiper.wake()
       })
       _.delay(function() {
-        self.addTiles()
+        self.initTiles()
       }, 200)
     }
-  , addTiles: function() {
+  , initTiles: function() {
       this.tiles = new TilesCollection([], {plate: this.plate})
-      this.tiles.addOne(3, 0, 0)
-      this.tiles.addOne(3, 0, 1)
-      this.tiles.addOne(1, 1, 0)
+      this.addNewTile()
+    }
+  , addNewTile: function(num) {
+      var num = num || Math.ceil(Math.random() * this.getCurrentMax())
+      this.tiles.addOne(num, 0, 0)
+    }
+  , getCurrentMax: function() {
+      var max = this.tiles.max(function(model) {
+        return model.get('number')
+      })
+      return Math.max(max, 3)
     }
   })
 
