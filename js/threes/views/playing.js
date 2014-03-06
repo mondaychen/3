@@ -102,7 +102,11 @@ define([
         return model.get('number')
       }).get('number') / 2
       max = Math.max(max, 3)
-      var arr = [1, 2].concat(_.range(3, max + 1, 3))
+      var arr = [3, 2, 1]
+      // start from 1/4 of the current max number
+      while((max = max / 2) > 3) {
+        arr.unshift(max)
+      }
       // random in the array
       return arr[_.random(arr.length - 1)]
     }
