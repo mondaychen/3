@@ -56,7 +56,7 @@ define([
       })
       if(isMoving) {
         _.delay(function() {
-          self.trigger('move:done')
+          self.model.trigger('move:done')
         }, duration * 1000)
       }
     }

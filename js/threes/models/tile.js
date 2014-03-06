@@ -23,9 +23,6 @@ define([
       })
       this.view = view
       this.plate.append(view.render().el)
-      this.view.on('move:done', function() {
-        this.trigger('move:done')
-      }, this)
     }
   , moveTo: function(m, n) {
       this.set({m: m, n: n})
@@ -34,7 +31,7 @@ define([
       var self = this
       var num = this.get('number') + toBeMerged.get('number')
       this.moveTo(toBeMerged.get('m'), toBeMerged.get('n'))
-      this.view.once('move:done', function() {
+      this.once('move:done', function() {
         toBeMerged.destroy()
         self.set('number', num)
       })
