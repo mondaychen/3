@@ -80,11 +80,13 @@ define([
       this.addNewTile(num)
     }
   , getRandomNumber: function() {
+      // half the biggest number
       var max = this.tiles.max(function(model) {
         return model.get('number')
       }).get('number') / 2
       max = Math.max(max, 3)
       var arr = [1, 2].concat(_.range(3, max + 1, 3))
+      // random in the array
       return arr[_.random(arr.length - 1)]
     }
   })
