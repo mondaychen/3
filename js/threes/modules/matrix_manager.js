@@ -29,6 +29,7 @@ define([
   _.extend(MatrixManager.prototype, Backbone.Events, {
     resetCache: function() {
       this._movables = {}
+      this._lastMoved = []
     }
   , set: function(model, m, n, replace) {
       if(m >= this.row || n >= this.column) {
@@ -89,7 +90,8 @@ define([
     }
   , doMove: function(direction) {
       var self = this
-      _.each(this.getMovables(direction), function(model) {
+      var movables = this.getMovables(direction)
+      _.each(movables, function(model) {
         var m = model.get('m')
         var n = model.get('n')
         self.set(null, m, n, true)
@@ -110,7 +112,11 @@ define([
         self.set(model, m, n, true)
       })
 
+      this._lastMoved = movables
       this.resetCache()
+    }
+  , getLastMoved: function() {
+      return this._lastMoved || []
     }
   })
 

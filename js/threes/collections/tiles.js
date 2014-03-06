@@ -39,20 +39,14 @@ define([
       this.on('add', function(model) {
         this.matrixManager.set(model, model.get('m'), model.get('n'))
       }, this)
-      this.on('move:done', function() {
-        // this means the animation is done
-        app.trigger('swiper:unfreeze')
-      })
     }
   , addOne: function(number, m, n, direction) {
       if(this.matrixManager.getAt(m, n)) {
         return false
       }
       var model = new this.model({
-        number: number
-      , m: m
-      , n: n
-      }, {plate: this.plate})
+        number: number, m: m, n: n
+      }, { plate: this.plate })
       this.add(model)
       return true
     }
@@ -75,6 +69,13 @@ define([
       }
       app.trigger('swiper:freeze')
       this.matrixManager.doMove(direction)
+
+      var self = this
+      this.on('move:done', _.after(movables.length, function() {
+        // after all animation is done, run once
+        app.trigger('round:go_next')
+        self.off('move:done')
+      }))
     }
   })
 

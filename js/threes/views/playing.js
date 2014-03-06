@@ -65,6 +65,11 @@ define([
       this.addNewTile()
       this.addNewTile()
       this.addNewTile()
+
+      var self = this
+      app.on('round:go_next', function() {
+        app.trigger('swiper:unfreeze')
+      })
     }
   , addNewTile: function(num, m, n) {
       num = num || this.getRandomNumber()
