@@ -67,7 +67,20 @@ define([
       this.addNewTile()
 
       var self = this
-      app.on('round:go_next', function() {
+      app.on('round:finish', function(direction) {
+        var lastMoved = self.tiles.matrixManager.getLastMoved()
+        console.log(lastMoved)
+        var model = lastMoved[_.random(lastMoved.length - 1)]
+        var pos = model.getCoordinates()
+        switch (direction) {
+          case 'up':    pos.m = self.plateSize.row - 1; break;
+          case 'right': pos.n = 0; break;
+          case 'down':  pos.m = 0; break;
+          case 'left':  pos.n = self.plateSize.column - 1; break;
+          default: break;
+        }
+        self.tiles.flyInOne(self.getRandomNumber(), pos.m, pos.n, direction)
+      }).on('round:ready', function() {
         app.trigger('swiper:unfreeze')
       })
     }

@@ -36,6 +36,12 @@ define([
         self.set('number', num)
       })
     }
+  , getCoordinates: function() {
+      return {
+        m: this.get('m')
+      , n: this.get('n')
+      }
+    }
   })
 
   return Tile

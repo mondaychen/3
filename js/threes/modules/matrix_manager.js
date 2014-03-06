@@ -23,13 +23,13 @@ define([
       this.matrix.push(_.clone(emptyRow))
     }, this)
 
+    this._lastMoved = []
     this.resetCache()
   }
 
   _.extend(MatrixManager.prototype, Backbone.Events, {
     resetCache: function() {
       this._movables = {}
-      this._lastMoved = []
     }
   , set: function(model, m, n, replace) {
       if(m >= this.row || n >= this.column) {
@@ -42,6 +42,7 @@ define([
       return model
     }
   , getAt: function(m, n) {
+      console.log(this.matrix)
       return this.matrix[m][n]
     }
   , getMovables: function(direction) {
@@ -112,11 +113,12 @@ define([
         self.set(model, m, n, true)
       })
 
-      this._lastMoved = movables
+      this._lastMoved = _.clone(movables)
+      console.log(this._lastMoved)
       this.resetCache()
     }
   , getLastMoved: function() {
-      return this._lastMoved || []
+      return _.clone(this._lastMoved) || []
     }
   })
 

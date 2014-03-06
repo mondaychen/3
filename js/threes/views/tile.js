@@ -65,13 +65,16 @@ define([
         // return cached position
         return _.clone(this._position)
       }
-      var eq = this.model.get('m') * 4 + this.model.get('n')
-      var bgPos = this.bgTiles.eq(eq).offset()
-      var offset = this.plate.offset()
+      var coord = this.model.getCoordinates()
+      var bgTile = this.bgTiles.eq(0)
+      var marginLeft = parseFloat(bgTile.css('margin-left'))
+      var marginTop = parseFloat(bgTile.css('margin-top'))
+      var width = bgTile.width()
+      var height = bgTile.height()
+      var borderTop = parseFloat(this.plate.css('border-top-width'))
       this._position = {
-        top: bgPos.top - offset.top
-          - parseFloat(this.plate.css('border-top-width'))
-      , left: bgPos.left - offset.left
+        top: borderTop + coord.m * height + (coord.m + 1) * marginTop
+      , left: coord.n * width + (coord.n + 1) * marginLeft
       }
       return _.clone(this._position)
     }

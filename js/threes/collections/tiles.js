@@ -40,14 +40,38 @@ define([
         this.matrixManager.set(model, model.get('m'), model.get('n'))
       }, this)
     }
-  , addOne: function(number, m, n, direction) {
+  , newModel: function(number, m, n) {
+      return new this.model({
+        number: number, m: m, n: n
+      }, { plate: this.plate })
+    }
+  , addOne: function(number, m, n) {
       if(this.matrixManager.getAt(m, n)) {
         return false
       }
-      var model = new this.model({
-        number: number, m: m, n: n
-      }, { plate: this.plate })
+      var model = this.newModel(number, m, n)
       this.add(model)
+      return true
+    }
+  , flyInOne: function(number, m, n, direction) {
+      if(this.matrixManager.getAt(m, n)) {
+        return false
+      }
+      var startM = m
+      var startN = n
+      switch (direction) {
+        case 'up':    startM++; break;
+        case 'right': startN--; break;
+        case 'down':  startM--; break;
+        case 'left':  startN++; break;
+        default: break;
+      }
+      var model = this.newModel(number, startM, startN)
+      model.moveTo(m, n)
+      model.once('move:done', function() {
+        this.add(model)
+        app.trigger('round:ready')
+      }, this)
       return true
     }
   , preview: function(direction, distance) {
@@ -73,7 +97,7 @@ define([
       var self = this
       this.on('move:done', _.after(movables.length, function() {
         // after all animation is done, run once
-        app.trigger('round:go_next')
+        app.trigger('round:finish', direction)
         self.off('move:done')
       }))
     }
