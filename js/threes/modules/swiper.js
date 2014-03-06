@@ -15,7 +15,9 @@ define([
   }
 
   function evt2point (e) {
-    return { x: e.pageX, y: -e.pageY }
+    var pageX = e.pageX || e.originalEvent.pageX
+    var pageY = e.pageY || e.originalEvent.pageY
+    return { x: pageX, y: -pageY }
   }
 
   var body = $('body')

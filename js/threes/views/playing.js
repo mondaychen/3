@@ -69,7 +69,6 @@ define([
       var self = this
       app.on('round:finish', function(direction) {
         var lastMoved = self.tiles.matrixManager.getLastMoved()
-        console.log(lastMoved)
         var model = lastMoved[_.random(lastMoved.length - 1)]
         var pos = model.getCoordinates()
         switch (direction) {

@@ -42,7 +42,6 @@ define([
       return model
     }
   , getAt: function(m, n) {
-      console.log(this.matrix)
       return this.matrix[m][n]
     }
   , getMovables: function(direction) {
@@ -114,7 +113,6 @@ define([
       })
 
       this._lastMoved = _.clone(movables)
-      console.log(this._lastMoved)
       this.resetCache()
     }
   , getLastMoved: function() {
