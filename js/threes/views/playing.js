@@ -18,11 +18,13 @@ define([
   var PlayingView = Backbone.View.extend({
     id: "playing-view"
   , initialize: function() {
+      this.plateSize = { row: 4, column: 4 }
     }
   , render: function() {
       this.plate = $('<div class="plate"></div>').appendTo(this.$el)
       var bg = $('<div class="bg"></div>').appendTo(this.plate)
-      bg.append(multiplyStr('<div class="bg-tile"></div>', 16))
+      bg.append(multiplyStr('<div class="bg-tile"></div>'
+        , this.plateSize.row * this.plateSize.column))
 
 
       this.header = $('<header></header>').prependTo(this.$el)
@@ -50,12 +52,17 @@ define([
       }, 200)
     }
   , initTiles: function() {
-      this.tiles = new TilesCollection([], {plate: this.plate})
+      this.tiles = new TilesCollection([], {
+        plate: this.plate
+      , plateSize: this.plateSize
+      })
       this.addNewTile()
     }
-  , addNewTile: function(num) {
-      var num = num || Math.ceil(Math.random() * this.getCurrentMax())
-      this.tiles.addOne(num, 0, 0)
+  , addNewTile: function(num, m, n) {
+      num = num || Math.ceil(Math.random() * this.getCurrentMax())
+      m = m || Math.floor(Math.random() * this.plateSize.row)
+      n = n || Math.floor(Math.random() * this.plateSize.column)
+      this.tiles.addOne(num, m, n)
     }
   , getCurrentMax: function() {
       var max = this.tiles.max(function(model) {

@@ -12,8 +12,9 @@ define([
   , initialize: function(models, options) {
       var self = this
       this.plate = options.plate
+      var plateSize = options.plateSize
 
-      this.matrixManager = new MatrixManager(4, 4, {
+      this.matrixManager = new MatrixManager(plateSize.row, plateSize.column, {
         conflictTest: function(m1, m2) {
           if(!m1 || !m2) {
             return true
