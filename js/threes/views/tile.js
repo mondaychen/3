@@ -7,8 +7,7 @@ define([
 ], function($, _, Backbone, transition, app) {
 
   var TileView = Backbone.View.extend({
-    className: "tile"
-  , initialize: function(options) {
+    initialize: function(options) {
       this.plate = options.plate
       this.bgTiles = this.plate.find('.bg-tile')
 
@@ -28,6 +27,8 @@ define([
       _.bindAll(this, 'render', 'updatePosition')
     }
   , render: function() {
+      this.el.className = 'tile'
+      this.$el.empty()
       this.numberContainer = $('<div class="number"></div>' )
         .appendTo(this.$el)
 
@@ -47,8 +48,7 @@ define([
         var currentLeft = parseFloat(this.$el.css('left') || 0)
         var sum = Math.abs((currentLeft - pos.left)/this.$el.width()
           + (currentTop - pos.top)/this.$el.height())
-        console.log(sum)
-        duration = 0.2 * sum / 2.31
+        duration = 0.4 * sum / 2.31
       }
       this.$el.transition(this.getPosition(isMoving), {
         duration: duration

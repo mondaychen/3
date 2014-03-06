@@ -23,7 +23,7 @@ define([
           var n2 = m2.get('number')
           if(n1 + n2 === 3) {
             return true
-          } else if(n1 + n2 > 3 && n1 === n2) {
+          } else if(n1 + n2 >= 6 && n1 === n2) {
             return true
           }
           return false
