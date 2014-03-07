@@ -1,6 +1,6 @@
 This is a copy of the popular iOS game [Threes!](https://itunes.apple.com/us/app/threes!/id779157948?mt=8&ign-mpt=uo%3D2) with HTML, CSS and JavaScript.
 
-It is still under construction but a demo is availbale [here](http://mondaychen.github.io/threes/#playing).
+It is still under construction but a demo is availbale [here](http://mondaychen.github.io/threes/#playing). The demo is tested on the lastest version of Chrome. You can report bugs in the [issues](https://github.com/mondaychen/threes/issues).
 
 The primary goal of the game is to make a number as big as you can before you run out of moves.
 
