@@ -100,10 +100,10 @@ define([
       // half the biggest number
       var max = this.tiles.max(function(model) {
         return model.get('number')
-      }).get('number') / 2
+      }).get('number') / 4
       max = Math.max(max, 3)
       var arr = [3, 2, 1]
-      // start from 1/4 of the current max number
+      // start from 1/8 of the current max number
       while((max = max / 2) > 3) {
         arr.unshift(max)
       }
