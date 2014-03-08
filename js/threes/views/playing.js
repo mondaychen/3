@@ -97,18 +97,23 @@ define([
       this.addNewTile(num)
     }
   , getRandomNumber: function() {
-      // half the biggest number
+      // 1/8 the biggest number
       var max = this.tiles.max(function(model) {
         return model.get('number')
-      }).get('number') / 4
+      }).get('number') / 8
       max = Math.max(max, 3)
-      var arr = [3, 2, 1]
-      // start from 1/8 of the current max number
-      while((max = max / 2) > 3) {
-        arr.unshift(max)
+      var current = [1, 2, 3][_.random(2)]
+      if(current === 3) {
+        while(current < max) {
+          // 2/3 chance
+          if(_.random(2) > 0) {
+            break
+          } else {
+            current *= 2
+          }
+        }
       }
-      // random in the array
-      return arr[_.random(arr.length - 1)]
+      return current
     }
   })
 
