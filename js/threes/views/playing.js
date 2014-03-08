@@ -5,7 +5,8 @@ define([
 , 'threes/app'
 , 'threes/collections/tiles'
 , 'threes/modules/swiper'
-], function($, _, Backbone, app, TilesCollection, Swiper) {
+, 'threes/views/next_hinter'
+], function($, _, Backbone, app, TilesCollection, Swiper, nextHinterView) {
 
   function multiplyStr (str, times) {
     var result = ''
@@ -29,6 +30,9 @@ define([
 
       this.header = $('<header></header>').prependTo(this.$el)
       this.footer = $('<footer></footer>').appendTo(this.$el)
+
+      this.nextHinter = new nextHinterView({number: 1})
+      this.header.append(this.nextHinter.render().el)
 
       return this
     }
@@ -66,6 +70,8 @@ define([
       this.addNewTile()
       this.addNewTile()
 
+      this.prepareNext()
+
       var self = this
       app.on('round:finish', function(direction) {
         var lastMoved = self.tiles.matrixManager.getLastMoved()
@@ -78,7 +84,8 @@ define([
           case 'left':  pos.n = self.plateSize.column - 1; break;
           default: break;
         }
-        self.tiles.flyInOne(self.getRandomNumber(), pos.m, pos.n, direction)
+        self.tiles.flyInOne(self.nextNumber, pos.m, pos.n, direction)
+        self.prepareNext()
       }).on('round:ready', function() {
         app.trigger('swiper:unfreeze')
       })
@@ -114,6 +121,10 @@ define([
         }
       }
       return current
+    }
+  , prepareNext: function() {
+      this.nextNumber = this.getRandomNumber()
+      this.nextHinter.changeNumber(this.nextNumber)
     }
   })
 

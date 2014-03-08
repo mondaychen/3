@@ -6,10 +6,16 @@ define([
 , 'threes/app'
 ], function($, _, Backbone, transition, app) {
 
+  var tileSize = {
+    height: 159
+  , width: 106
+  , marginLeft: 22
+  , marginTop: 10
+  }
+
   var TileView = Backbone.View.extend({
     initialize: function(options) {
       this.plate = options.plate
-      this.bgTiles = this.plate.find('.bg-tile')
 
       this.model.on('change:m change:n', function() {
         this.updatePosition(true)
@@ -66,11 +72,10 @@ define([
         return _.clone(this._position)
       }
       var coord = this.model.getCoordinates()
-      var bgTile = this.bgTiles.eq(0)
-      var marginLeft = parseFloat(bgTile.css('margin-left'))
-      var marginTop = parseFloat(bgTile.css('margin-top'))
-      var width = bgTile.width()
-      var height = bgTile.height()
+      var marginLeft = app.ratio * tileSize.marginLeft
+      var marginTop = app.ratio * tileSize.marginTop
+      var width = app.ratio * tileSize.width
+      var height = app.ratio * tileSize.height
       var borderTop = parseFloat(this.plate.css('border-top-width'))
       this._position = {
         top: borderTop + coord.m * height + (coord.m + 1) * marginTop
