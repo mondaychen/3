@@ -6,6 +6,15 @@ define([
 , 'threes/app'
 ], function($, _, Backbone, transition, app) {
 
+  function getDigit (number) {
+    var digit = 0
+    while(number >= 1) {
+      digit++
+      number/=10
+    }
+    return digit
+  }
+
   var tileSize = {
     height: 159
   , width: 106
@@ -40,7 +49,7 @@ define([
 
       var number = this.model.get('number')
       this.$el.addClass('num-' + number)
-      this.numberContainer.html(number)
+      this.numberContainer.html(number).addClass('digit-' + getDigit(number))
       this.updatePosition(false)
 
       return this
