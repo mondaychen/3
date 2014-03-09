@@ -5,7 +5,8 @@ define([
 , 'bowser'
 , 'threes/app'
 , 'threes/views/playing'
-], function($, _, Backbone, bowser, app, PlayingView) {
+, 'threes/modules/swiper'
+], function($, _, Backbone, bowser, app, PlayingView, Swiper) {
 
   var AppRouter = Backbone.Router.extend({
 
@@ -40,6 +41,17 @@ define([
           // }
         }
       }, 300))
+
+      // init swiper
+      var swiper = app.swiper = new Swiper()
+      app.on('swiper:freeze', function() {
+        swiper.sleep()
+      }).on('swiper:unfreeze', function() {
+        swiper.wake()
+      }).on('game:restart', function() {
+        swiper.off()
+        this.go('')
+      }, this)
     }
 
   , home: function() {
@@ -50,6 +62,9 @@ define([
       var playingView = new PlayingView()
       app.wrapper.html(playingView.render().el)
       playingView.start()
+      playingView.listenTo(app, 'game:restart', function() {
+        playingView.remove()
+      })
     }
 
   , go: function(url) {

@@ -12,6 +12,7 @@ define([
   , initialize: function(models, options) {
       var self = this
       this.plate = options.plate
+      this.playingHub = options.playingHub
       var plateSize = options.plateSize
 
       this.matrixManager = new MatrixManager(plateSize.row, plateSize.column, {
@@ -70,7 +71,7 @@ define([
       model.moveTo(m, n)
       model.once('move:done', function() {
         this.add(model)
-        app.trigger('round:ready')
+        this.playingHub.trigger('round:ready')
       }, this)
       return true
     }
@@ -97,7 +98,7 @@ define([
       var self = this
       this.on('move:done', _.after(movables.length, function() {
         // after all animation is done, run once
-        app.trigger('round:finish', direction)
+        self.playingHub.trigger('round:finish', direction)
         self.off('move:done')
       }))
     }

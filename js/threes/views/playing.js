@@ -4,9 +4,8 @@ define([
 , 'backbone'
 , 'threes/app'
 , 'threes/collections/tiles'
-, 'threes/modules/swiper'
 , 'threes/views/next_hinter'
-], function($, _, Backbone, app, TilesCollection, Swiper, nextHinterView) {
+], function($, _, Backbone, app, TilesCollection, nextHinterView) {
 
   function multiplyStr (str, times) {
     var result = ''
@@ -38,19 +37,13 @@ define([
     }
   , start: function() {
       var self = this
-      var swiper = new Swiper().wake()
+      var swiper = app.swiper.wake()
       swiper.on('move', function(direction, distance) {
         self.tiles.preview(direction, distance)
       }, this)
       .on('swipe', function(direction, forward){
         self.tiles.move(direction, !forward)
       }, this)
-      app.on('page_change swiper:freeze', function() {
-        swiper.sleep()
-      })
-      app.on('swiper:unfreeze', function() {
-        swiper.wake()
-      })
       _.delay(function() {
         self.initTiles()
       }, 200)
@@ -59,6 +52,7 @@ define([
       this.tiles = new TilesCollection([], {
         plate: this.plate
       , plateSize: this.plateSize
+      , playingHub: this
       })
       this.addNewTile(1)
       this.addNewTile(1)
@@ -73,7 +67,7 @@ define([
       this.prepareNext()
 
       var self = this
-      app.on('round:finish', function(direction) {
+      self.on('round:finish', function(direction) {
         var lastMoved = self.tiles.matrixManager.getLastMoved()
         var model = lastMoved[_.random(lastMoved.length - 1)]
         var pos = model.getCoordinates()
@@ -88,12 +82,14 @@ define([
         self.prepareNext()
       }).on('round:ready', function() {
         if(!self.tiles.anyMovable()) {
-          app.trigger('game:over')
+          self.trigger('game:over')
           return
         }
         app.trigger('swiper:unfreeze')
       }).on('game:over', function() {
+        // clear all events on swiper
         alert('game over')
+        app.trigger('game:restart')
       })
     }
   , addNewTile: function(num, m, n) {
