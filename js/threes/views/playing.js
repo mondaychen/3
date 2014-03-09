@@ -2,10 +2,12 @@ define([
   'jquery'
 , 'underscore'
 , 'backbone'
+, 'magnific-popup'
 , 'threes/app'
 , 'threes/collections/tiles'
 , 'threes/views/next_hinter'
-], function($, _, Backbone, app, TilesCollection, nextHinterView) {
+], function($, _, Backbone, magnificPopup, app, TilesCollection
+  , nextHinterView) {
 
   function multiplyStr (str, times) {
     var result = ''
@@ -88,8 +90,19 @@ define([
         app.trigger('swiper:unfreeze')
       }).on('game:over', function() {
         // clear all events on swiper
-        alert('game over')
-        app.trigger('game:restart')
+        magnificPopup.open({
+          items: {
+            src: '<div class="white-popup">Game Over!</div>'
+          , type: 'inline'
+          }
+          , removalDelay: 300
+          , mainClass: 'mfp-fade-from-top'
+          , callbacks: {
+              close: function() {
+                app.trigger('game:restart')
+              }
+            }
+        })
       })
     }
   , addNewTile: function(num, m, n) {

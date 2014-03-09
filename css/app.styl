@@ -1,5 +1,6 @@
 @import "nib"
 @import "normalize-css/normalize.css"
+@import "magnific-popup/dist/magnific-popup.css"
 
 @font-face
   font-family: 'Signika';
@@ -104,3 +105,34 @@ body
       height: 70rem
       line-height: @height
       font-size: 40rem
+
+// all magnific-popup
+.white-popup
+  position: relative
+  background: #FFF
+  padding: 20px
+  width: auto
+  max-width: 500px
+  margin: 20px auto
+
+.mfp-fade-from-top
+  &.mfp-bg
+    opacity: 0
+    transition: all 0.3s ease-out
+    &.mfp-ready
+      opacity: 0.8
+    &.mfp-removing
+      opacity: 0
+  &.mfp-wrap
+    .mfp-content
+      opacity: 0
+      transform: translateY(-100px);
+      transition: all 0.3s ease-out
+    &.mfp-ready
+      .mfp-content
+        opacity: 1
+        transform: translateY(0px);
+    &.mfp-removing
+      .mfp-content
+        opacity: 0
+        transform: translateY(-100px);
