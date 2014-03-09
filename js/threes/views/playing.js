@@ -87,7 +87,13 @@ define([
         self.tiles.flyInOne(self.nextNumber, pos.m, pos.n, direction)
         self.prepareNext()
       }).on('round:ready', function() {
+        if(!self.tiles.anyMovable()) {
+          app.trigger('game:over')
+          return
+        }
         app.trigger('swiper:unfreeze')
+      }).on('game:over', function() {
+        alert('game over')
       })
     }
   , addNewTile: function(num, m, n) {

@@ -39,6 +39,7 @@ define([
         return false
       }
       this.matrix[m][n] = model
+      this.resetCache()
       return model
     }
   , getAt: function(m, n) {

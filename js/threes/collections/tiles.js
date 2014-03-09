@@ -101,6 +101,15 @@ define([
         self.off('move:done')
       }))
     }
+  , anyMovable: function() {
+      var self = this
+      var allMovablesCounts = _.map(['up', 'right', 'down', 'left']
+        , function(direction) {
+          return self.matrixManager.getMovables(direction).length
+        })
+      return _.any(allMovablesCounts)
+      return true
+    }
   })
 
   return Tiles
