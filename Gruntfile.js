@@ -48,5 +48,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch')
 
   grunt.registerTask('build', ['stylus', 'ozma:app'])
-  grunt.registerTask('default', ['build'])
+  grunt.registerTask('default', ['build', 'watch'])
 }
