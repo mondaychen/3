@@ -13,9 +13,8 @@ define([
   , render: function() {
       this.$el.empty()
       this.tile = $('<div class="tile"><div class="number"></div></div>')
-                    .appendTo(this.$el)
-
-      this.tile.addClass('num-' + this.number)
+      this.tile.appendTo(this.$el).addClass('num-' + this.number)
+        .find('.number').html(this.number > 3 ? '+' : '')
       this.$el.append('<div class="word">next</div>')
 
       return this
