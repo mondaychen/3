@@ -40,9 +40,9 @@ define([
           src: options.html
         , type: 'inline'
         }
-        , removalDelay: 300
-        , mainClass: 'mfp-fade-from-top'
-        , callbacks: makeCallbacks(options.callbacks)
+      , removalDelay: 300
+      , mainClass: 'mfp-fade-from-top'
+      , callbacks: makeCallbacks(options.callbacks)
       })
     }
   , openGallery: function(options) {
@@ -57,6 +57,8 @@ define([
       , gallery:{
           enabled: true
         }
+      , removalDelay: 300
+      , mainClass: 'mfp-fade-from-top'
       })
     }
   })
