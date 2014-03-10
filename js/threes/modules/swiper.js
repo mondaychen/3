@@ -51,7 +51,6 @@ define([
       return this
     }
   , _onStart: function(e) {
-      e.preventDefault()
       var self = this
       this._delayed = setTimeout(function() {
         body.on(events.move + '.swiper', self._onMove)
@@ -59,7 +58,6 @@ define([
       this.startPoint = evt2point(e)
     }
   , _onMove: function(e) {
-      e.preventDefault()
       var currentPoint = evt2point(e)
       var deltaY = currentPoint.y - this.startPoint.y
       var deltaX = currentPoint.x - this.startPoint.x
@@ -94,7 +92,6 @@ define([
       this.lastPoint = currentPoint
     }
   , _onEnd: function(e) {
-      e.preventDefault()
       body.off(events.move + '.swiper', this._onMove)
       if(!this.direction) {
         return
