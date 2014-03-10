@@ -17,8 +17,11 @@ html
 body
   font-size: 16px
 
+$blue = #66ccff
+$pink = #ff6881
+
 button
-  background: #66ccff
+  background: $blue
   border-radius: .10rem
   border: none
   color: #fff
@@ -27,6 +30,11 @@ button
   &:hover
     color: @background
     background: #fff
+
+.blue
+  color: $blue
+.pink
+  color: $pink
 
 #wrapper
   max-width: 5.33rem
@@ -99,12 +107,12 @@ button
     background: #60aaf1
     .number
       color: #fff
-      background: #66ccff
+      background: $blue
   &.num-2
     background: #cc547c
     .number
       color: #fff
-      background: #ff6881
+      background: $pink
   .score
     position: absolute
     z-index: 50
@@ -153,10 +161,11 @@ button
   width: auto
   max-width: 460px
   margin: 20px auto
-  text-align: center
-  .score
-    font-size: 1.5em
-    margin: 0 0.1em 0 0.2em
+  &.game-over
+    text-align: center
+    .score
+      font-size: 1.5em
+      margin: 0 0.1em 0 0.2em
 
 .mfp-fade-from-top
   &.mfp-bg
