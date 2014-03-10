@@ -54,7 +54,7 @@ define([
       var self = this
       this._delayed = setTimeout(function() {
         body.on(events.move + '.swiper', self._onMove)
-      }, 100)
+      }, hasTouch ? 1 : 100)
       this.startPoint = evt2point(e)
     }
   , _onMove: function(e) {
