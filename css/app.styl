@@ -49,22 +49,19 @@ body
   width: 1.06rem
   background: #ffcc66
   border-radius: .10rem
-  overflow: hidden
   position: absolute
   top: 0
   left: 0
   z-index: 5
   .number
     width: 100%
-    height: @height
+    height: 1.49rem
     line-height: @height
     box-sizing: border-box
     font-size: .80rem
     border-radius: @border-radius
     position: absolute
     text-align: center
-    top: -.10rem
-    padding-top: -@top
     background: #feffff
     color: #000
     &.digit-3
@@ -81,6 +78,19 @@ body
     .number
       color: #fff
       background: #ff6881
+  .score
+    position: absolute
+    top: .40rem
+    transition: all 0.4s
+    opacity: 0
+    width: 100%
+    text-align: center
+    font-size: .50rem
+    color: #fdc54a
+    text-shadow: 0 0 0.03rem #000, 0 0 0.03rem #000, 0 0 0.03rem #000
+    &.show-score
+      transform: translateY(-.65rem)
+      opacity: 1
 
 .up-coming-number
   width: .96rem

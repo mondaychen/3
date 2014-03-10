@@ -52,7 +52,7 @@ define([
         this.tiles.move(direction, !forward)
       }, this)
 
-      var keyboard = window.keyboard = app.keyboard.wake()
+      var keyboard = app.keyboard.wake()
       this.listenTo(keyboard, 'preview', function(direction) {
         swiper.sleep()
         var isMovable = this.tiles.previewInHalf(direction)
@@ -69,7 +69,7 @@ define([
       })
     }
   , initTiles: function() {
-      this.tiles = new TilesCollection([], {
+      window.tiles = this.tiles = new TilesCollection([], {
         plate: this.plate
       , plateSize: this.plateSize
       , playingHub: this
@@ -108,7 +108,6 @@ define([
         }
         app.trigger('swiper:unfreeze')
       }).on('game:over', function() {
-        // clear all events on swiper
         magnificPopup.open({
           items: {
             src: '<div class="white-popup">Game Over!</div>'

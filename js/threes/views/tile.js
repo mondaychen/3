@@ -150,6 +150,18 @@ define([
 
       this.preview(direction, distance, true)
     }
+  , showScore: function() {
+      var score = this.model.getScore()
+      console.log(score)
+      if(!score) {
+        this.$el.addClass('gray')
+      } else {
+        var dom = $('<div class="score">+' + score + '</div>').appendTo(this.$el)
+        _.defer(function() {
+          dom.addClass('show-score')
+        })
+      }
+    }
   })
 
   return TileView

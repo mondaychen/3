@@ -118,6 +118,11 @@ define([
       return _.any(allMovablesCounts)
       return true
     }
+  , showScore: function() {
+      this.each(function(model) {
+        model.view.showScore()
+      })
+    }
   })
 
   return Tiles
