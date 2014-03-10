@@ -42,8 +42,8 @@ define([
       , n: this.get('n')
       }
     }
-  , getScore: function() {
-      var num = this.get('number')
+  , getScore: function(number) {
+      var num = number || this.get('number')
       if(num < 3) {
         return 0
       }

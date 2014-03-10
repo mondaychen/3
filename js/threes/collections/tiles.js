@@ -126,9 +126,10 @@ define([
   , showScore: function() {
       var self = this
       var max = this.getMaxNumber()
+      var total = 0
       var showNext = function(current) {
         if(current > max) {
-          self.playingHub.trigger('game:score:done')
+          self.playingHub.trigger('game:score:done', total)
           return
         }
         var arr = self.filter(function(model) {
@@ -143,6 +144,7 @@ define([
         }
         self.on('score:shown', _.after(arr.length, function() {
           self.off('score:shown')
+          total += arr.length * self.model.prototype.getScore(current)
           showNext(current * 2)
         }))
       }

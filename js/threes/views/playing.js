@@ -111,10 +111,10 @@ define([
       }).on('game:over', function() {
         this.header.showWords('Out of moves!')
         this.tiles.showScore()
-      }).on('game:score:done', function() {
+      }).on('game:score:done', function(totalScore) {
         magnificPopup.open({
           items: {
-            src: '<div class="white-popup">Game Over!</div>'
+            src: '<div class="white-popup">Game Over!'+totalScore +'</div>'
           , type: 'inline'
           }
           , removalDelay: 300
