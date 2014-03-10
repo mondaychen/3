@@ -5,9 +5,9 @@ define([
 , 'magnific-popup'
 , 'threes/app'
 , 'threes/collections/tiles'
-, 'threes/views/next_hinter'
+, 'threes/views/playing.header'
 ], function($, _, Backbone, magnificPopup, app, TilesCollection
-  , nextHinterView) {
+  , HeaderView) {
 
   function multiplyStr (str, times) {
     var result = ''
@@ -23,17 +23,15 @@ define([
       this.plateSize = { row: 4, column: 4 }
     }
   , render: function() {
+      this.header = new HeaderView({number: 1})
+      this.$el.append(this.header.render().el)
+
       this.plate = $('<div class="plate"></div>').appendTo(this.$el)
       var bg = $('<div class="bg"></div>').appendTo(this.plate)
       bg.append(multiplyStr('<div class="bg-tile"></div>'
         , this.plateSize.row * this.plateSize.column))
-
-
-      this.header = $('<header></header>').prependTo(this.$el)
+      
       this.footer = $('<footer></footer>').appendTo(this.$el)
-
-      this.nextHinter = new nextHinterView({number: 1})
-      this.header.append(this.nextHinter.render().el)
 
       return this
     }
@@ -142,7 +140,7 @@ define([
     }
   , prepareNext: function() {
       this.nextNumber = this.getRandomNumber()
-      this.nextHinter.changeNumber(this.nextNumber)
+      this.header.setComingNumber(this.nextNumber)
     }
   })
 
