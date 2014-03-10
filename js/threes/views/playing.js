@@ -5,8 +5,7 @@ define([
 , 'threes/app'
 , 'threes/collections/tiles'
 , 'threes/views/playing.header'
-], function($, _, Backbone, app, TilesCollection
-  , HeaderView) {
+], function($, _, Backbone, app, TilesCollection, HeaderView) {
 
   function multiplyStr (str, times) {
     var result = ''
