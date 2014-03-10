@@ -48,6 +48,7 @@ define([
       }, this)
       _.delay(function() {
         self.initTiles()
+        self.initEvents()
       }, 200)
     }
   , initTiles: function() {
@@ -67,7 +68,8 @@ define([
       this.addNewTile()
 
       this.prepareNext()
-
+    }
+  , initEvents: function() {
       var self = this
       self.on('round:finish', function(direction) {
         var lastMoved = self.tiles.matrixManager.getLastMoved()
