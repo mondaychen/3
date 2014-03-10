@@ -25,6 +25,9 @@ define([
   , render: function() {
       this.header = new HeaderView({number: 1})
       this.$el.append(this.header.render().el)
+      this.listenTo(this.header, 'show:help', function() {
+        helpView.show()
+      })
 
       this.plate = $('<div class="plate"></div>').appendTo(this.$el)
       var bg = $('<div class="bg"></div>').appendTo(this.plate)

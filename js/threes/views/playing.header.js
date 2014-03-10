@@ -12,6 +12,10 @@ define([
       this.number = options.number || 1
       this.translateY = 0
     }
+  , events: {
+      'click .button-menu a': 'showMenu'
+    , 'click .button-help a': 'showHelp'
+    }
   , render: function() {
       this.$el.html(_.template(this.template, {
         number: this.number
@@ -33,6 +37,12 @@ define([
       container.css({
         transform: 'translateY(' + this.translateY + 'px)'
       })
+    }
+  , showMenu: function() {
+      this.trigger('show:menu')
+    }
+  , showHelp: function() {
+      this.trigger('show:help')
     }
   })
 

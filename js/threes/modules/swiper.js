@@ -23,16 +23,19 @@ define([
   var body = $('body')
 
   function Swiper () {
-    this.direction = null
-    this.forward = false
-    this.startPoint = {x: 0, y: 0}
-    this.lastPoint = null
-
+    this.reset()
     _.bindAll(this, '_onStart', '_onMove', '_onEnd')
   }
 
   _.extend(Swiper.prototype, Backbone.Events, {
-    wake: function() {
+    reset: function() {
+      this.direction = null
+      this.forward = false
+      this.startPoint = {x: 0, y: 0}
+      this.lastPoint = null
+      clearTimeout(this._delayed)
+    }
+  , wake: function() {
       if(this._isAwake) {
         return this
       }
@@ -43,13 +46,14 @@ define([
     }
   , sleep: function() {
       body.off('.swiper')
+      this.reset()
       this._isAwake = false
       return this
     }
   , _onStart: function(e) {
       e.preventDefault()
       var self = this
-      _.delay(function() {
+      this._delayed = setTimeout(function() {
         body.on(events.move + '.swiper', self._onMove)
       }, 100)
       this.startPoint = evt2point(e)

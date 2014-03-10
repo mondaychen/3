@@ -11,14 +11,15 @@
 html
   font-family: 'Signika', 'Comic Sans MS', 'PT Sans', 'Eras Light ITC', Helvetica, Arial, sans-serif;
   font-size: 100px
-  color: #777e8c
   user-select: none
-
-body
-  font-size: 16px
 
 $blue = #66ccff
 $pink = #ff6881
+$gray = #777e8c
+
+body
+  color: $gray
+  font-size: 16px
 
 button
   background: $blue
@@ -53,6 +54,21 @@ button
     overflow: hidden
     .main
       height: @height
+      position: relative
+      .button-menu
+      .button-help
+        position: absolute
+        top: 0.80rem
+        a
+          color: $gray
+          text-decoration: none
+          font-size: 0.46rem
+          &:hover
+            color: #cfe6df
+      .button-menu
+        left: 0
+      .button-help
+        right: 0
     .header-container
       transition: transform 0.5s
       .words
@@ -61,9 +77,6 @@ button
         text-align: center
         height: @height
         line-height: @height
-      .game-over
-      .score
-        position: absolute
   footer
     height: .86rem
 
