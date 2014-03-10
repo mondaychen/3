@@ -38,7 +38,7 @@ define([
       }, this)
       .on('change_back', function() {
         this.updatePosition(true, false)
-      })
+      }, this)
       .on('change:number', function() {
         this.render()
       }, this)
