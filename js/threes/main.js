@@ -3,13 +3,13 @@ define([
 , 'underscore'
 , 'backbone'
 , 'bowser'
-, 'magnific-popup'
 , 'threes/app'
 , 'threes/views/playing'
+, 'threes/views/utils/popup'
 , 'threes/modules/swiper'
 , 'threes/modules/keyboard_listener'
-], function($, _, Backbone, bowser, magnificPopup
-  , app, PlayingView, Swiper, Keyboard) {
+], function($, _, Backbone, bowser
+  , app, PlayingView, popup, Swiper, Keyboard) {
 
   var AppRouter = Backbone.Router.extend({
 
@@ -57,10 +57,8 @@ define([
         keyboard.wake()
       })
 
-      // global set up for magnificPopup
-      $(document).on('click', '.my-mfp-close', function() {
-        magnificPopup.close()
-      })
+      // init utils
+      app.popup = popup
 
       // game logic
       app.on('game:restart', function() {

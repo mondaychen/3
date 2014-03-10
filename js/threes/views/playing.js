@@ -2,11 +2,10 @@ define([
   'jquery'
 , 'underscore'
 , 'backbone'
-, 'magnific-popup'
 , 'threes/app'
 , 'threes/collections/tiles'
 , 'threes/views/playing.header'
-], function($, _, Backbone, magnificPopup, app, TilesCollection
+], function($, _, Backbone, app, TilesCollection
   , HeaderView) {
 
   function multiplyStr (str, times) {
@@ -115,20 +114,15 @@ define([
       }).on('game:score:done', function(totalScore) {
         // don't be to fast
         _.delay(function() {
-          magnificPopup.open({
-            items: {
-              src: _.template($('#tmpl-game-over').html(), {
-                score: totalScore
-              })
-            , type: 'inline'
-            }
-            , removalDelay: 300
-            , mainClass: 'mfp-fade-from-top'
-            , callbacks: {
-                close: function() {
-                  app.trigger('game:restart')
-                }
+          app.popup.open({
+            html: _.template($('#tmpl-game-over').html(), {
+              score: totalScore
+            })
+          , callbacks: {
+              close: function() {
+                app.trigger('game:restart')
               }
+            }
           })
         }, 400)
       })
