@@ -2,9 +2,10 @@ define([
   'jquery'
 , 'underscore'
 , 'backbone'
+, 'bowser'
 , 'mod/jquery.transition'
 , 'threes/app'
-], function($, _, Backbone, transition, app) {
+], function($, _, Backbone, bowser, transition, app) {
 
   function getDigit (number) {
     var digit = 0
@@ -16,10 +17,20 @@ define([
   }
 
   function pos2transform (pos) {
-    return {
-      'transform': 'translate3d('
-        + pos.left + 'px, ' + pos.top +'px, 0)'
+    var prefix = ''
+    if(bowser.webkit) {
+      prefix = '-webkit-'
     }
+    if(bowser.firefox) {
+      prefix = '-moz-'
+    }
+    if(bowser.msie) {
+      prefix = '-ms-'
+    }
+    var rtn = {}
+    rtn[prefix + 'transform'] = 'translate3d('
+        + pos.left + 'px, ' + pos.top +'px, 0)'
+    return rtn
   }
 
   var tileSize = {
