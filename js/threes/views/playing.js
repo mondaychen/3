@@ -5,7 +5,8 @@ define([
 , 'threes/app'
 , 'threes/collections/tiles'
 , 'threes/views/playing.header'
-], function($, _, Backbone, app, TilesCollection, HeaderView) {
+, 'threes/views/utils/help'
+], function($, _, Backbone, app, TilesCollection, HeaderView, helpView) {
 
   function multiplyStr (str, times) {
     var result = ''
@@ -31,6 +32,10 @@ define([
         , this.plateSize.row * this.plateSize.column))
 
       this.footer = $('<footer></footer>').appendTo(this.$el)
+
+      if(localStorage && !localStorage.played) {
+        helpView.show()
+      }
 
       return this
     }

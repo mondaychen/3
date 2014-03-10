@@ -14,7 +14,10 @@ define([
 
   _.extend(Popup.prototype, Backbone.Events, {
     open: function(options) {
-      options = _.extend({}, options)
+      options = _.extend({
+        html: ''
+      , callbacks: {}
+      }, options)
       magnificPopup.open({
         items: {
           src: options.html
@@ -22,7 +25,19 @@ define([
         }
         , removalDelay: 300
         , mainClass: 'mfp-fade-from-top'
-        , callbacks: options.callbacks || {}
+        , callbacks: options.callbacks
+      })
+    }
+  , openGallery: function(options) {
+      options = _.extend({
+        items: []
+      }, options)
+      magnificPopup.open({
+        items: options.items
+      , type: 'inline'
+      , gallery:{
+          enabled: true
+        }
       })
     }
   })
