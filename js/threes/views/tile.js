@@ -17,7 +17,7 @@ define([
 
   function pos2transform (pos) {
     return {
-      '-webkit-transform': 'translate3d('
+      'transform': 'translate3d('
         + pos.left + 'px, ' + pos.top +'px, 0)'
     }
   }
