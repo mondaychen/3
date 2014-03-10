@@ -39,6 +39,9 @@ button
       background: #fff
   &.full-size
     display: inline-block
+    padding: 10px
+    margin: 0 4px
+    font-size: 22px
     width: 100px
     max-width: 100%
 
@@ -176,6 +179,18 @@ button
       line-height: @height
       font-size: .40rem
 
+.button-appstore
+  height: 90px
+  width: 170px
+  margin: 20px auto 0
+  background: transparent url('../img/btn_appstore.svg') top left no-repeat
+  cursor: pointer
+  display: block
+  &:hover
+    background-position: 0px -90px
+  &:active
+    background-position: 0px -180px
+
 // magnific-popup
 .white-popup
   position: relative
@@ -196,6 +211,8 @@ button
       margin: 0 0.1em 0 0.2em
   &.playing-menu
     text-align: center
+    .menu
+      margin-bottom: 30px
 
 .mfp-fade-from-top
   &.mfp-bg
