@@ -6,7 +6,9 @@ define([
 , 'threes/collections/tiles'
 , 'threes/views/playing.header'
 , 'threes/views/utils/help'
-], function($, _, Backbone, app, TilesCollection, HeaderView, helpView) {
+, 'threes/views/utils/menu'
+], function($, _, Backbone, app, TilesCollection, HeaderView
+  , helpView, menuView) {
 
   function multiplyStr (str, times) {
     var result = ''
@@ -25,9 +27,6 @@ define([
   , render: function() {
       this.header = new HeaderView({number: 1})
       this.$el.append(this.header.render().el)
-      this.listenTo(this.header, 'show:help', function() {
-        helpView.show()
-      })
 
       this.plate = $('<div class="plate"></div>').appendTo(this.$el)
       var bg = $('<div class="bg"></div>').appendTo(this.plate)
@@ -41,6 +40,7 @@ define([
   , start: function() {
       var self = this
       _.delay(function() {
+        self.initHeader()
         self.initController()
         self.initTiles()
         self.initEvents()
@@ -49,6 +49,13 @@ define([
           localStorage.played = "true"
         }
       }, 200)
+    }
+  , initHeader: function() {
+      this.listenTo(this.header, 'show:help', function() {
+        helpView.show()
+      }).listenTo(this.header, 'show:menu', function() {
+        menuView.show()
+      })
     }
   , initController: function() {
       var swiper = app.swiper.wake()

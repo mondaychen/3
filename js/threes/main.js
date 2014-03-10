@@ -46,7 +46,7 @@ define([
         }
       }, 300))
 
-      // init swiper and keyboard listene
+      // init swiper and keyboard listener
       var swiper = app.swiper = new Swiper()
       var keyboard = app.keyboard = new Keyboard()
       app.on('swiper:freeze', function() {
