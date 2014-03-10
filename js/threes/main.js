@@ -26,7 +26,7 @@ define([
         var viewWidth = win.width()
         app.ratio = Math.min(viewHeight/blueprint.height
           , viewWidth/blueprint.width)
-        root.css('font-size', app.ratio+'px')
+        root.css('font-size', app.ratio * 100 +'px')
       }
       fixRootEm()
       $(window).resize(_.debounce(function() {
