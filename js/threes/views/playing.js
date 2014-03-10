@@ -109,12 +109,15 @@ define([
         }
         app.trigger('swiper:unfreeze')
       }).on('game:over', function() {
+        app.trigger('swiper:freeze')
         this.header.showWords('Out of moves!')
         this.tiles.showScore()
       }).on('game:score:done', function(totalScore) {
         magnificPopup.open({
           items: {
-            src: '<div class="white-popup">Game Over!'+totalScore +'</div>'
+            src: _.template($('#game-over').html(), {
+              score: totalScore
+            })
           , type: 'inline'
           }
           , removalDelay: 300

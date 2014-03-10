@@ -3,17 +3,20 @@ define([
 , 'underscore'
 , 'backbone'
 , 'bowser'
+, 'magnific-popup'
 , 'threes/app'
 , 'threes/views/playing'
 , 'threes/modules/swiper'
 , 'threes/modules/keyboard_listener'
-], function($, _, Backbone, bowser, app, PlayingView, Swiper, Keyboard) {
+], function($, _, Backbone, bowser, magnificPopup
+  , app, PlayingView, Swiper, Keyboard) {
 
   var AppRouter = Backbone.Router.extend({
 
     routes: {
       "": "home"
     , "playing": "playing"
+    , "replay": "replay"
     }
 
   , initialize: function() {
@@ -54,6 +57,11 @@ define([
         keyboard.wake()
       })
 
+      // global set up for magnificPopup
+      $(document).on('click', '.my-mfp-close', function() {
+        magnificPopup.close()
+      })
+
       // game logic
       app.on('game:restart', function() {
         this.go('')
@@ -61,6 +69,10 @@ define([
     }
 
   , home: function() {
+      this.go('playing')
+    }
+
+  , replay: function() {
       this.go('playing')
     }
 
