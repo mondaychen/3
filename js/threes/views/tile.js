@@ -34,15 +34,15 @@ define([
       this.plate = options.plate
 
       this.model.on('change:m change:n', function() {
-        this.updatePosition(true)
+        this.updatePosition(true, true)
       }, this)
-      this.model.on('change_back', function() {
-        this.updatePosition(false)
-      }, this)
-      this.model.on('change:number', function() {
+      .on('change_back', function() {
+        this.updatePosition(true, false)
+      })
+      .on('change:number', function() {
         this.render()
       }, this)
-      this.model.on('destroy', function() {
+      .on('destroy', function() {
         this.$el.remove()
       }, this)
 
@@ -59,7 +59,7 @@ define([
       var number = this.model.get('number')
       this.$el.addClass('num-' + number)
       this.numberContainer.html(number).addClass('digit-' + getDigit(number))
-      this.updatePosition(false)
+      this.updatePosition(false, false)
 
       return this
     }
@@ -79,11 +79,11 @@ define([
       })
       this._realPos = position
     }
-  , updatePosition: function(isMoving) {
+  , updatePosition: function(animated, refresh) {
       var self = this
-      var pos = this.getPosition(isMoving)
-      this.moveTo(pos, isMoving, function() {
-        if(isMoving) {
+      var pos = this.getPosition(refresh)
+      this.moveTo(pos, animated, function() {
+        if(refresh) {
           self.model.trigger('move:done')
         }
       })
