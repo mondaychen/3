@@ -113,21 +113,24 @@ define([
         this.header.showWords('Out of moves!')
         this.tiles.showScore()
       }).on('game:score:done', function(totalScore) {
-        magnificPopup.open({
-          items: {
-            src: _.template($('#game-over').html(), {
-              score: totalScore
-            })
-          , type: 'inline'
-          }
-          , removalDelay: 300
-          , mainClass: 'mfp-fade-from-top'
-          , callbacks: {
-              close: function() {
-                app.trigger('game:restart')
-              }
+        // don't be to fast
+        _.delay(function() {
+          magnificPopup.open({
+            items: {
+              src: _.template($('#game-over').html(), {
+                score: totalScore
+              })
+            , type: 'inline'
             }
-        })
+            , removalDelay: 300
+            , mainClass: 'mfp-fade-from-top'
+            , callbacks: {
+                close: function() {
+                  app.trigger('game:restart')
+                }
+              }
+          })
+        }, 400)
       })
     }
   , addNewTile: function(num, m, n) {
