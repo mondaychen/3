@@ -63,27 +63,30 @@ define([
 
       return this
     }
-  , updatePosition: function(isMoving) {
-      var self = this
+  , moveTo: function(position, animated, callback) {
       var duration = 0
-      var pos = this.getPosition(isMoving)
-      if(isMoving) {
+      if(animated) {
         var currentTop = this._realPos.top || 0
         var currentLeft = this._realPos.left || 0
-        var sum = Math.abs((currentLeft - pos.left)/this.$el.width()
-          + (currentTop - pos.top)/this.$el.height())
+        var sum = Math.abs((currentLeft - position.left)/this.$el.width()
+          + (currentTop - position.top)/this.$el.height())
         duration = 0.4 * sum / 2.31
       }
-      this.$el.transition(pos2transform(pos), {
+      this.$el.transition(pos2transform(position), {
         duration: duration
       , timing: 'linear'
+      , callback: callback
       })
-      this._realPos = pos
-      if(isMoving) {
-        _.delay(function() {
+      this._realPos = position
+    }
+  , updatePosition: function(isMoving) {
+      var self = this
+      var pos = this.getPosition(isMoving)
+      this.moveTo(pos, isMoving, function() {
+        if(isMoving) {
           self.model.trigger('move:done')
-        }, duration * 1000)
-      }
+        }
+      })
     }
   , getPosition: function(refresh) {
       if(!refresh && this._position) {
@@ -102,7 +105,7 @@ define([
       }
       return _.clone(this._position)
     }
-  , preview: function(direction, distance) {
+  , preview: function(direction, distance, animated) {
       var position = this.getPosition()
       var height = this.$el.height()
       var width = this.$el.width()
@@ -122,8 +125,7 @@ define([
         default:
           break;
       }
-      this._realPos = position
-      this.$el.css(pos2transform(position))
+      this.moveTo(position, animated)
     }
   , previewInHalf: function(direction) {
       var distance = 0
@@ -134,19 +136,19 @@ define([
           distance = height / 2
           break;
         case 'right':
-          distance = - width / 2
+          distance = width / 2
           break;
         case 'down':
           distance = - height /2
           break;
         case 'left':
-          distance = width / 2
+          distance = - width / 2
           break;
         default:
           break;
       }
 
-      this.preview(direction, distance)
+      this.preview(direction, distance, true)
     }
   })
 

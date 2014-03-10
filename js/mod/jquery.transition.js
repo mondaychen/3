@@ -12,7 +12,8 @@
     duration: 0,
     timing: 'ease',
     delay: 0,
-    property: null // String or Array here
+    property: null, // String or Array here
+    callback: $.noop
   };
 
   $.fn.transition = function (styles, options) {
@@ -36,6 +37,9 @@
     // set back to initial value
     setTimeout(function() {
       $this.css('transition', initialValue);
+      if($.isFunction(settings.callback)) {
+        settings.callback()
+      }
     }, settings.duration * 1000);
   };
 
