@@ -39,14 +39,15 @@ define([
     }
   , start: function() {
       var self = this
-      var swiper = app.swiper.wake()
-      swiper.on('move', function(direction, distance) {
-        self.tiles.preview(direction, distance)
-      }, this)
-      .on('swipe', function(direction, forward){
-        self.tiles.move(direction, !forward)
-      }, this)
       _.delay(function() {
+        var swiper = app.swiper.wake()
+        swiper.on('move', function(direction, distance) {
+          self.tiles.preview(direction, distance)
+        }, this)
+        .on('swipe', function(direction, forward){
+          self.tiles.move(direction, !forward)
+        }, this)
+
         self.initTiles()
         self.initEvents()
       }, 200)
