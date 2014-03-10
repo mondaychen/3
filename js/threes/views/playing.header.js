@@ -11,9 +11,14 @@ define([
       this.number = options.number || 1
     }
   , render: function() {
-      this.upComing = $('<div class="up-coming-number"></div>')
+      this.container = $('<div class="header-container"></div>')
         .appendTo(this.$el)
+      this.main = $('<div class="main"></div>').appendTo(this.container)
+      this.upComing = $('<div class="up-coming-number"></div>')
+        .appendTo(this.main)
       this.setUpComing()
+
+      this.translateY = 0
 
       return this
     }
@@ -27,6 +32,15 @@ define([
   , setComingNumber: function(number) {
       this.number = number
       this.setUpComing()
+    }
+  , showWords: function(words) {
+      var wordsContainer = $('<div class="words">' + words +'</div>')
+        .appendTo(this.container)
+
+      this.translateY -= this.$el.height()
+      this.container.css({
+        transform: 'translateY(' + this.translateY + 'px)'
+      })
     }
   })
 

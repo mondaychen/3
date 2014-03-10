@@ -21,6 +21,7 @@ define([
     id: "playing-view"
   , initialize: function() {
       this.plateSize = { row: 4, column: 4 }
+      window.playing = this
     }
   , render: function() {
       this.header = new HeaderView({number: 1})
@@ -69,7 +70,7 @@ define([
       })
     }
   , initTiles: function() {
-      window.tiles = this.tiles = new TilesCollection([], {
+      this.tiles = new TilesCollection([], {
         plate: this.plate
       , plateSize: this.plateSize
       , playingHub: this
@@ -108,6 +109,9 @@ define([
         }
         app.trigger('swiper:unfreeze')
       }).on('game:over', function() {
+        this.header.showWords('Out of moves!')
+        this.tiles.showScore()
+      }).on('game:score:done', function() {
         magnificPopup.open({
           items: {
             src: '<div class="white-popup">Game Over!</div>'

@@ -23,6 +23,21 @@ body
 #playing-view
   header
     height: 2.22rem
+    position: relative
+    overflow: hidden
+    .main
+      height: @height
+    .header-container
+      transition: transform 0.5s
+      .words
+        font-size: 0.75rem
+        width: 100%
+        text-align: center
+        height: @height
+        line-height: @height
+      .game-over
+      .score
+        position: absolute
   footer
     height: .86rem
 
