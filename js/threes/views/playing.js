@@ -55,10 +55,13 @@ define([
       var keyboard = app.keyboard.wake()
       this.listenTo(keyboard, 'preview', function(direction) {
         this.tiles.previewInHalf(direction)
+        swiper.sleep()
       }).listenTo(keyboard, 'confirm', function(direction) {
         this.tiles.move(direction, false)
+        swiper.wake()
       }).listenTo(keyboard, 'cancel', function(direction) {
         this.tiles.move(direction, true)
+        swiper.wake()
       })
     }
   , initTiles: function() {
