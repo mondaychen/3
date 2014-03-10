@@ -64,7 +64,7 @@ define([
 
       // game logic
       app.on('game:restart', function() {
-        this.go('')
+        this.go('replay')
       }, this)
     }
 
