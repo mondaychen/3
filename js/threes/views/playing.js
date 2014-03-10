@@ -51,6 +51,15 @@ define([
       .listenTo(swiper, 'swipe', function(direction, forward){
         this.tiles.move(direction, !forward)
       }, this)
+
+      var keyboard = app.keyboard.wake()
+      this.listenTo(keyboard, 'preview', function(direction) {
+        console.log('preview',direction)
+      }).listenTo(keyboard, 'confirm', function(direction) {
+        console.log('confirm',direction)
+      }).listenTo(keyboard, 'cancel', function(direction) {
+        console.log('cancel',direction)
+      })
     }
   , initTiles: function() {
       this.tiles = new TilesCollection([], {

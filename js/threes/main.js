@@ -6,7 +6,8 @@ define([
 , 'threes/app'
 , 'threes/views/playing'
 , 'threes/modules/swiper'
-], function($, _, Backbone, bowser, app, PlayingView, Swiper) {
+, 'threes/modules/keyboard_listener'
+], function($, _, Backbone, bowser, app, PlayingView, Swiper, Keyboard) {
 
   var AppRouter = Backbone.Router.extend({
 
@@ -42,13 +43,19 @@ define([
         }
       }, 300))
 
-      // init swiper
+      // init swiper and keyboard listene
       var swiper = app.swiper = new Swiper()
+      var keyboard = app.keyboard = new Keyboard()
       app.on('swiper:freeze', function() {
         swiper.sleep()
+        keyboard.sleep()
       }).on('swiper:unfreeze', function() {
         swiper.wake()
-      }).on('game:restart', function() {
+        keyboard.wake()
+      })
+
+      // game logic
+      app.on('game:restart', function() {
         this.go('')
       }, this)
     }
