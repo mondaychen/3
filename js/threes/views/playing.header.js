@@ -11,7 +11,6 @@ define([
       this.number = options.number || 1
     }
   , render: function() {
-      this.$el.empty()
       this.upComing = $('<div class="up-coming-number"></div>')
         .appendTo(this.$el)
       this.setUpComing()

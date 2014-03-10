@@ -30,7 +30,7 @@ define([
       var bg = $('<div class="bg"></div>').appendTo(this.plate)
       bg.append(multiplyStr('<div class="bg-tile"></div>'
         , this.plateSize.row * this.plateSize.column))
-      
+
       this.footer = $('<footer></footer>').appendTo(this.$el)
 
       return this
@@ -38,17 +38,19 @@ define([
   , start: function() {
       var self = this
       _.delay(function() {
-        var swiper = app.swiper.wake()
-        swiper.on('move', function(direction, distance) {
-          self.tiles.preview(direction, distance)
-        }, this)
-        .on('swipe', function(direction, forward){
-          self.tiles.move(direction, !forward)
-        }, this)
-
+        self.initController()
         self.initTiles()
         self.initEvents()
       }, 200)
+    }
+  , initController: function() {
+      var swiper = app.swiper.wake()
+      this.listenTo(swiper, 'move', function(direction, distance) {
+        this.tiles.preview(direction, distance)
+      }, this)
+      .listenTo(swiper, 'swipe', function(direction, forward){
+        this.tiles.move(direction, !forward)
+      }, this)
     }
   , initTiles: function() {
       this.tiles = new TilesCollection([], {

@@ -49,7 +49,6 @@ define([
       }).on('swiper:unfreeze', function() {
         swiper.wake()
       }).on('game:restart', function() {
-        swiper.off()
         this.go('')
       }, this)
     }
