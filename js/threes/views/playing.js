@@ -43,6 +43,7 @@ define([
         self.initEvents()
         if(localStorage && !localStorage.played) {
           helpView.show()
+          localStorage.played = "true"
         }
       }, 200)
     }
