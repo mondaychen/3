@@ -81,6 +81,12 @@ define([
         model.view.preview(direction, distance)
       })
     }
+  , previewInHalf: function(direction) {
+      var movables = this.matrixManager.getMovables(direction)
+      _.each(movables, function(model) {
+        model.view.previewInHalf(direction)
+      })
+    }
   , move: function(direction, canceled) {
       var movables = this.matrixManager.getMovables(direction)
       if(!movables.length) {

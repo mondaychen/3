@@ -54,11 +54,11 @@ define([
 
       var keyboard = app.keyboard.wake()
       this.listenTo(keyboard, 'preview', function(direction) {
-        console.log('preview',direction)
+        this.tiles.previewInHalf(direction)
       }).listenTo(keyboard, 'confirm', function(direction) {
-        console.log('confirm',direction)
+        this.tiles.move(direction, false)
       }).listenTo(keyboard, 'cancel', function(direction) {
-        console.log('cancel',direction)
+        this.tiles.move(direction, true)
       })
     }
   , initTiles: function() {

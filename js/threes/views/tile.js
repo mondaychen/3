@@ -104,24 +104,49 @@ define([
     }
   , preview: function(direction, distance) {
       var position = this.getPosition()
+      var height = this.$el.height()
+      var width = this.$el.width()
       switch (direction) {
         case 'up':
-          position.top -= Math.min(this.$el.height(), distance)
+          position.top -= Math.min(height, distance)
           break;
         case 'right':
-          position.left += Math.min(this.$el.width(), distance)
+          position.left += Math.min(width, distance)
           break;
         case 'down':
-          position.top -= Math.max(-this.$el.height(), distance)
+          position.top -= Math.max(-height, distance)
           break;
         case 'left':
-          position.left += Math.max(-this.$el.width(), distance)
+          position.left += Math.max(-width, distance)
           break;
         default:
           break;
       }
       this._realPos = position
       this.$el.css(pos2transform(position))
+    }
+  , previewInHalf: function(direction) {
+      var distance = 0
+      var height = this.$el.height()
+      var width = this.$el.width()
+      switch (direction) {
+        case 'up':
+          distance = height / 2
+          break;
+        case 'right':
+          distance = - width / 2
+          break;
+        case 'down':
+          distance = - height /2
+          break;
+        case 'left':
+          distance = width / 2
+          break;
+        default:
+          break;
+      }
+
+      this.preview(direction, distance)
     }
   })
 
