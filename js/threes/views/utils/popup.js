@@ -9,6 +9,9 @@ define([
     // global set up for magnificPopup
     $(document).on('click', '.my-mfp-close', function() {
       magnificPopup.close()
+    }).on('click', '.my-mfp-next', function() {
+      var instance = $.magnificPopup.instance
+      instance.next()
     })
   }
 
