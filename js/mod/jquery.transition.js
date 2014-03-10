@@ -26,6 +26,7 @@
     }
 
     var $this = $(this);
+    var self = this
 
     // only pick the properties of the styles if not defined by user
     var props = settings.property || styles;
@@ -38,7 +39,7 @@
     setTimeout(function() {
       $this.css('transition', initialValue);
       if($.isFunction(settings.callback)) {
-        settings.callback()
+        settings.callback.call(self);
       }
     }, settings.duration * 1000);
   };
