@@ -33,10 +33,6 @@ define([
 
       this.footer = $('<footer></footer>').appendTo(this.$el)
 
-      if(localStorage && !localStorage.played) {
-        helpView.show()
-      }
-
       return this
     }
   , start: function() {
@@ -45,6 +41,9 @@ define([
         self.initController()
         self.initTiles()
         self.initEvents()
+        if(localStorage && !localStorage.played) {
+          helpView.show()
+        }
       }, 200)
     }
   , initController: function() {

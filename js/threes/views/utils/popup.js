@@ -15,6 +15,20 @@ define([
     })
   }
 
+  function makeCallbacks (callbacks) {
+    var open = callbacks.open || $.noop
+    var close = callbacks.close || $.noop
+    callbacks.open = function () {
+      app.trigger('swiper:freeze')
+      open.apply(this, arguments)
+    }
+    callbacks.close = function () {
+      app.trigger('swiper:unfreeze')
+      close.apply(this, arguments)
+    }
+    return callbacks
+  }
+
   _.extend(Popup.prototype, Backbone.Events, {
     open: function(options) {
       options = _.extend({
@@ -28,16 +42,18 @@ define([
         }
         , removalDelay: 300
         , mainClass: 'mfp-fade-from-top'
-        , callbacks: options.callbacks
+        , callbacks: makeCallbacks(options.callbacks)
       })
     }
   , openGallery: function(options) {
       options = _.extend({
         items: []
+      , callbacks: {}
       }, options)
       magnificPopup.open({
         items: options.items
       , type: 'inline'
+      , callbacks: makeCallbacks(options.callbacks)
       , gallery:{
           enabled: true
         }
