@@ -39,16 +39,16 @@ define([
     }
   , start: function() {
       var self = this
+      self.initHeader()
+      self.initTiles()
+      self.initEvents()
       _.delay(function() {
-        self.initHeader()
         self.initController()
-        self.initTiles()
-        self.initEvents()
         if(localStorage && !localStorage.played) {
           helpView.show()
           localStorage.played = "true"
         }
-      }, 200)
+      }, 500)
     }
   , initHeader: function() {
       this.listenTo(this.header, 'show:help', function() {

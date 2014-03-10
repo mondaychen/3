@@ -4,12 +4,13 @@ define([
 , 'backbone'
 , 'bowser'
 , 'threes/app'
+, 'threes/views/home'
 , 'threes/views/playing'
 , 'threes/views/utils/popup'
 , 'threes/modules/swiper'
 , 'threes/modules/keyboard_listener'
-], function($, _, Backbone, bowser
-  , app, PlayingView, popup, Swiper, Keyboard) {
+], function($, _, Backbone, bowser, app
+  , HomeView, PlayingView, popup, Swiper, Keyboard) {
 
   var AppRouter = Backbone.Router.extend({
 
@@ -67,7 +68,8 @@ define([
     }
 
   , home: function() {
-      this.go('playing')
+      var homeView = new HomeView()
+      app.wrapper.html(homeView.render().el)
     }
 
   , replay: function() {
