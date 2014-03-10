@@ -86,6 +86,7 @@ define([
       _.each(movables, function(model) {
         model.view.previewInHalf(direction)
       })
+      return !!movables.length
     }
   , move: function(direction, canceled) {
       var movables = this.matrixManager.getMovables(direction)

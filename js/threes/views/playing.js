@@ -52,10 +52,14 @@ define([
         this.tiles.move(direction, !forward)
       }, this)
 
-      var keyboard = app.keyboard.wake()
+      var keyboard = window.keyboard = app.keyboard.wake()
       this.listenTo(keyboard, 'preview', function(direction) {
-        this.tiles.previewInHalf(direction)
         swiper.sleep()
+        var isMovable = this.tiles.previewInHalf(direction)
+        if(!isMovable) {
+          keyboard.trigger('cancel', direction)
+          keyboard.reset()
+        }
       }).listenTo(keyboard, 'confirm', function(direction) {
         this.tiles.move(direction, false)
         swiper.wake()

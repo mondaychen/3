@@ -32,6 +32,9 @@ define([
       this._isAwake = false
       return this
     }
+  , reset: function() {
+      this.direction = null
+    }
   , _onKeyup: function(e) {
       var currentKey = _.find(keymap, function(key) {
         return _.some(key.keyCodes, function(keyCode) {
@@ -43,16 +46,16 @@ define([
         return
       }
       if(!this.direction) {
-        this.trigger('preview', currentKey.name)
         this.direction = currentKey.name
+        this.trigger('preview', currentKey.name)
         return
       }
       if(this.direction === currentKey.name) {
         this.trigger('confirm', this.direction)
-        this.direction = null
+        this.reset()
       } else if(this.direction === currentKey.opposite) {
         this.trigger('cancel', this.direction)
-        this.direction = null
+        this.reset()
       }
     }
   })
