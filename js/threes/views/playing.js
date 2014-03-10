@@ -142,9 +142,7 @@ define([
     }
   , getRandomNumber: function() {
       // 1/8 the biggest number
-      var max = this.tiles.max(function(model) {
-        return model.get('number')
-      }).get('number') / 8
+      var max = this.tiles.getMaxNumber() / 8
       max = Math.max(max, 3)
       var current = [1, 2, 3][_.random(2)]
       if(current === 3) {

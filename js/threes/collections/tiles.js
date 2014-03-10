@@ -118,6 +118,11 @@ define([
       return _.any(allMovablesCounts)
       return true
     }
+  , getMaxNumber: function() {
+      return this.max(function(model) {
+        return model.get('number')
+      }).get('number')
+    }
   , showScore: function() {
       this.each(function(model) {
         model.view.showScore()
