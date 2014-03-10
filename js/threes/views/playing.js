@@ -117,7 +117,7 @@ define([
         _.delay(function() {
           magnificPopup.open({
             items: {
-              src: _.template($('#game-over').html(), {
+              src: _.template($('#tmpl-game-over').html(), {
                 score: totalScore
               })
             , type: 'inline'
