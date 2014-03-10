@@ -5,10 +5,10 @@ define([
 ], function ($, _, Backbone) {
 
   var keymap = [
-    { name: 'left', keyCodes: [37, 72], opposite: 'right' } // h
-  , { name: 'up',   keyCodes: [38, 75], opposite: 'down'  } // k
+    { name: 'left',  keyCodes: [37, 72], opposite: 'right' } // h
+  , { name: 'up',    keyCodes: [38, 75], opposite: 'down'  } // k
   , { name: 'right', keyCodes: [39, 76], opposite: 'left'  } // l
-  , { name: 'down', keyCodes: [40, 74], opposite: 'up'    } // j
+  , { name: 'down',  keyCodes: [40, 74], opposite: 'up'    } // j
   ]
 
   var doc = $(document)
