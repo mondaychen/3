@@ -15,6 +15,13 @@ define([
     return digit
   }
 
+  function pos2transform (pos) {
+    return {
+      '-webkit-transform': 'translate3d('
+        + pos.left + 'px, ' + pos.top +'px, 0)'
+    }
+  }
+
   var tileSize = {
     height: 159
   , width: 106
@@ -39,6 +46,8 @@ define([
         this.$el.remove()
       }, this)
 
+      this._realPos = {}
+
       _.bindAll(this, 'render', 'updatePosition')
     }
   , render: function() {
@@ -59,16 +68,17 @@ define([
       var duration = 0
       var pos = this.getPosition(isMoving)
       if(isMoving) {
-        var currentTop = parseFloat(this.$el.css('top') || 0)
-        var currentLeft = parseFloat(this.$el.css('left') || 0)
+        var currentTop = this._realPos.top || 0
+        var currentLeft = this._realPos.left || 0
         var sum = Math.abs((currentLeft - pos.left)/this.$el.width()
           + (currentTop - pos.top)/this.$el.height())
         duration = 0.4 * sum / 2.31
       }
-      this.$el.transition(this.getPosition(isMoving), {
+      this.$el.transition(pos2transform(pos), {
         duration: duration
       , timing: 'linear'
       })
+      this._realPos = pos
       if(isMoving) {
         _.delay(function() {
           self.model.trigger('move:done')
@@ -110,7 +120,8 @@ define([
         default:
           break;
       }
-      this.$el.css(position)
+      this._realPos = position
+      this.$el.css(pos2transform(position))
     }
   })
 
