@@ -37,7 +37,7 @@ define([
       $(window).resize(_.debounce(function() {
         // seems only firefox render this perfectly
         if(bowser.firefox) {
-          fixRootEm()
+          // fixRootEm()
         } else {
           // var cfm = confirm("You have resized the window. would you like to "
           //   + "refresh to make a adaptation?")
