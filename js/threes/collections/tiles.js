@@ -124,9 +124,29 @@ define([
       }).get('number')
     }
   , showScore: function() {
-      this.each(function(model) {
-        model.view.showScore()
-      })
+      var self = this
+      var max = this.getMaxNumber()
+      var showNext = function(current) {
+        if(current > max) {
+          self.playingHub.trigger('game:score:done')
+          return
+        }
+        var arr = self.filter(function(model) {
+          return model.get('number') === current
+        })
+        _.each(arr, function(model) {
+          model.view.showScore()
+        })
+        if(!arr.length) {
+          showNext(current * 2)
+          return
+        }
+        self.on('score:shown', _.after(arr.length, function() {
+          self.off('score:shown')
+          showNext(current * 2)
+        }))
+      }
+      showNext(3)
     }
   })
 

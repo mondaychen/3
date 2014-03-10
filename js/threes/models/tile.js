@@ -48,7 +48,7 @@ define([
         return 0
       }
       var score = 3
-      while((num /= 2) > 3) {
+      while((num /= 2) >= 3) {
         score *= 3
       }
       return score

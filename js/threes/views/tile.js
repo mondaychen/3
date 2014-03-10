@@ -151,15 +151,20 @@ define([
       this.preview(direction, distance, true)
     }
   , showScore: function() {
-      var score = this.model.getScore()
-      console.log(score)
+      var model = this.model
+      var score = model.getScore()
       if(!score) {
         this.$el.addClass('gray')
       } else {
-        var dom = $('<div class="score">+' + score + '</div>').appendTo(this.$el)
+        var dom = $('<div class="score">+' + score + '</div>')
+          .appendTo(this.$el)
         _.defer(function() {
           dom.addClass('show-score')
         })
+        _.delay(function() {
+          model.trigger('score:shown')
+          // important: this delay time keeps same with css
+        }, 400)
       }
     }
   })
