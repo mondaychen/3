@@ -16,7 +16,11 @@ define([
 
   function evt2point (e) {
     var pageX = e.pageX || e.originalEvent.pageX
+      || (e.originalEvent.changedTouches
+        && e.originalEvent.changedTouches[0].pageX)
     var pageY = e.pageY || e.originalEvent.pageY
+      || (e.originalEvent.changedTouches
+        && e.originalEvent.changedTouches[0].pageY)
     return { x: pageX, y: -pageY }
   }
 
