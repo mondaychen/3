@@ -7,8 +7,9 @@ define([
 , 'threes/views/playing.header'
 , 'threes/views/utils/help'
 , 'threes/views/utils/menu'
+, 'threes/modules/random_pool'
 ], function($, _, Backbone, app, TilesCollection, HeaderView
-  , helpView, menuView) {
+  , helpView, menuView, RandomPool) {
 
   function multiplyStr (str, times) {
     var result = ''
@@ -22,6 +23,7 @@ define([
     id: "playing-view"
   , initialize: function() {
       this.plateSize = { row: 4, column: 4 }
+      this.pool = new RandomPool(6, 3, _.bind(this._getRandomNumber, this))
       window.playing = this
     }
   , render: function() {
@@ -155,6 +157,9 @@ define([
       this.addNewTile(num)
     }
   , getRandomNumber: function() {
+      return this.pool.get()
+    }
+  , _getRandomNumber: function() {
       // 1/8 the biggest number
       var max = this.tiles.getMaxNumber() / 8
       max = Math.max(max, 3)
