@@ -75,7 +75,7 @@ define([
         var currentLeft = this._realPos.left || 0
         var sum = Math.abs((currentLeft - position.left)/this.$el.width()
           + (currentTop - position.top)/this.$el.height())
-        duration = 0.4 * sum / 2.31
+        duration = 0.07 * sum / app.ratio
       }
       this.$el.transition(pos2transform(position), {
         duration: duration
