@@ -21,15 +21,9 @@ define([
     if(bowser.webkit) {
       prefix = '-webkit-'
     }
-    if(bowser.firefox) {
-      prefix = '-moz-'
-    }
-    if(bowser.msie) {
-      prefix = '-ms-'
-    }
     var rtn = {}
     rtn[prefix + 'transform'] = 'translate3d('
-        + pos.left + 'px, ' + pos.top +'px, 0)'
+        + pos.left + 'px, ' + pos.top +'px, 0px)'
     return rtn
   }
 

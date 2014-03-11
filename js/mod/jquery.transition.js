@@ -32,7 +32,7 @@
     var props = settings.property || styles;
     var transitionValues = $.map(props, function(value, prop) {
       return [ prop, settings.duration + 's',
-        settings.timing, settings.delay ].join(' ');
+        settings.timing, settings.delay + 's' ].join(' ');
     }).join(',');
     $this.css('transition', transitionValues).css(styles);
     // set back to initial value
