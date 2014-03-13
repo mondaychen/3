@@ -91,14 +91,11 @@ define([
       , playingHub: this
       })
       this.addNewTile(1)
-      this.addNewTile(1)
-      this.addNewTile(2)
       this.addNewTile(2)
       this.addNewTile(3)
-      this.addNewTile(3)
-      this.addNewTile()
-      this.addNewTile()
-      this.addNewTile()
+      _.times(6, function(n) {
+        this.addNewTile()
+      }, this)
 
       this.prepareNext()
     }
@@ -161,6 +158,13 @@ define([
     }
   , _getRandomNumber: function() {
       // 1/8 the biggest number
+      var countOfOne = this.tiles.filter(function(model) {
+        return model.get('number') === 1
+      }).length
+      var countOfTwo = this.tiles.filter(function(model) {
+        return model.get('number') === 2
+      }).length
+      console.log(countOfOne, countOfTwo)
       var max = this.tiles.getMaxNumber() / 8
       max = Math.max(max, 3)
       var current = [1, 2, 3][_.random(2)]
@@ -173,6 +177,10 @@ define([
             current *= 2
           }
         }
+      } else if(countOfTwo - countOfOne >= 2) {
+        current = 1
+      } else if(countOfOne - countOfTwo >= 2) {
+        current = 2
       }
       return current
     }
