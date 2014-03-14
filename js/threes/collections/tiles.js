@@ -77,6 +77,11 @@ define([
     }
   , preview: function(direction, distance) {
       var movables = this.matrixManager.getMovables(direction)
+      if(!movables.length) {
+        this.each(function(model) {
+          model.view.stretch(direction, distance)
+        })
+      }
       _.each(movables, function(model) {
         model.view.preview(direction, distance)
       })
@@ -91,6 +96,10 @@ define([
   , move: function(direction, distance) {
       var movables = this.matrixManager.getMovables(direction)
       if(!movables.length) {
+        // get 'stretch' back
+        this.each(function(model) {
+          model.trigger('change_back')
+        })
         return
       }
       var canceled = false
