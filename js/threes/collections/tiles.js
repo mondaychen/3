@@ -151,9 +151,7 @@ define([
           self.playingHub.trigger('game:score:done', total)
           return
         }
-        var arr = self.filter(function(model) {
-          return model.get('number') === current
-        })
+        var arr = self.filterByNumber(current)
         _.each(arr, function(model) {
           model.view.showScore()
         })
