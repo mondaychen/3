@@ -92,14 +92,12 @@ define([
         return _.clone(this._position)
       }
       var coord = this.model.getCoordinates()
-      var marginLeft = app.ratio * app.tileSize.marginLeft
-      var marginTop = app.ratio * app.tileSize.marginTop
-      var width = app.ratio * app.tileSize.width
-      var height = app.ratio * app.tileSize.height
+      var tileSize = app.getTileSize()
       var borderTop = parseFloat(this.plate.css('border-top-width'))
       this._position = {
-        top: borderTop + coord.m * height + (coord.m + 1) * marginTop
-      , left: coord.n * width + (coord.n + 1) * marginLeft
+        top: borderTop + coord.m * tileSize.height
+          + (coord.m + 1) * tileSize.marginTop
+      , left: coord.n * tileSize.width + (coord.n + 1) * tileSize.marginLeft
       }
       return _.clone(this._position)
     }

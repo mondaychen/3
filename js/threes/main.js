@@ -79,6 +79,16 @@ define([
       }
     }, 300))
 
+    var tileSize = {
+      height: 159, width: 106
+    , marginLeft: 22, marginTop: 10
+    }
+    var getTileSize = _.memoize(function(ratio) {
+      return _.object(_.map(tileSize, function(value, key) {
+        return [key, value*ratio]
+      }))
+    })
+
     // init swiper and keyboard listener
     var swiper = new Swiper()
     var keyboard = new Keyboard()
@@ -91,14 +101,13 @@ define([
     })
 
     _.extend(app, {
-      tileSize: {
-        height: 159, width: 106
-      , marginLeft: 22, marginTop: 10
-      }
-    , swiper: swiper
+      swiper: swiper
     , keyboard: keyboard
     , popup: popup
     , router: new AppRouter()
+    , getTileSize: function() {
+        return getTileSize(app.ratio)
+      }
     })
 
     Backbone.history.start({pushState: false})
