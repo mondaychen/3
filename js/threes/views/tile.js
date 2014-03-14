@@ -172,6 +172,12 @@ define([
         }, 400)
       }
     }
+  , highlight: function() {
+      this.$el.addClass('highlight')
+    }
+  , unhighlight: function() {
+      this.$el.removeClass('highlight')
+    }
   })
 
   return TileView

@@ -158,13 +158,8 @@ define([
     }
   , _getRandomNumber: function() {
       // 1/8 the biggest number
-      var countOfOne = this.tiles.filter(function(model) {
-        return model.get('number') === 1
-      }).length
-      var countOfTwo = this.tiles.filter(function(model) {
-        return model.get('number') === 2
-      }).length
-      console.log(countOfOne, countOfTwo)
+      var countOfOne = this.tiles.filterByNumber(1).length
+      var countOfTwo = this.tiles.filterByNumber(2).length
       var max = this.tiles.getMaxNumber() / 8
       max = Math.max(max, 3)
       var current = [1, 2, 3][_.random(2)]

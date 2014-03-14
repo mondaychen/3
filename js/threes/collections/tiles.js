@@ -106,6 +106,7 @@ define([
       this.on('move:done', _.after(movables.length, function() {
         // after all animation is done, run once
         self.playingHub.trigger('round:finish', direction)
+        self.highlightMax()
         self.off('move:done')
       }))
     }
@@ -122,6 +123,24 @@ define([
       return this.max(function(model) {
         return model.get('number')
       }).get('number')
+    }
+  , highlightMax: function() {
+      var max = this.getMaxNumber()
+      if(max <= 3) {
+        return
+      }
+      this.each(function(model) {
+        model.view.unhighlight()
+      })
+      var maxArr = this.filterByNumber(max)
+      _.each(maxArr, function(model) {
+        model.view.highlight()
+      })
+    }
+  , filterByNumber: function(number) {
+      return this.filter(function(model) {
+        return model.get('number') === number
+      })
     }
   , showScore: function() {
       var self = this
