@@ -64,8 +64,8 @@ define([
       this.listenTo(swiper, 'move', function(direction, distance) {
         this.tiles.preview(direction, distance)
       }, this)
-      .listenTo(swiper, 'swipe', function(direction, forward){
-        this.tiles.move(direction, !forward)
+      .listenTo(swiper, 'swipe', function(direction, distance){
+        this.tiles.move(direction, distance)
       }, this)
 
       var keyboard = app.keyboard.wake()

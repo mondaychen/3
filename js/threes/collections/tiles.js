@@ -88,10 +88,19 @@ define([
       })
       return !!movables.length
     }
-  , move: function(direction, canceled) {
+  , move: function(direction, distance) {
       var movables = this.matrixManager.getMovables(direction)
       if(!movables.length) {
         return
+      }
+      var canceled = false
+      var tileSize = app.getTileSize()
+      switch (direction) {
+        case 'up':    canceled = tileSize.height / 3 > distance; break;
+        case 'right': canceled = tileSize.width / 3 > distance; break;
+        case 'down':  canceled = tileSize.height / 3 > -distance; break;
+        case 'left':  canceled = tileSize.width / 3 > -distance; break;
+        default: break;
       }
       if(canceled) {
         _.each(movables, function(model) {

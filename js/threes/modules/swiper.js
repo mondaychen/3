@@ -34,9 +34,8 @@ define([
   _.extend(Swiper.prototype, Backbone.Events, {
     reset: function() {
       this.direction = null
-      this.forward = false
       this.startPoint = {x: 0, y: 0}
-      this.lastPoint = null
+      this.distance = 0
       clearTimeout(this._delayed)
     }
   , wake: function() {
@@ -73,15 +72,6 @@ define([
         } else {
           this.direction = deltaY > 0 ? 'up' : 'down'
         }
-        this.forward = true
-      } else if(this.lastPoint) {
-        switch(this.direction) {
-          case 'up':    this.forward = currentPoint.y >= this.lastPoint.y; break;
-          case 'right': this.forward = currentPoint.x >= this.lastPoint.x; break;
-          case 'down':  this.forward = currentPoint.y <= this.lastPoint.y; break;
-          case 'left':  this.forward = currentPoint.x <= this.lastPoint.x; break;
-          default: break;
-        }
       }
       var distance = 0
       // lock direction
@@ -94,16 +84,15 @@ define([
       }
       this.trigger('move', this.direction, distance)
 
-      this.lastPoint = currentPoint
+      this.distance = distance
     }
   , _onEnd: function(e) {
       body.off(events.move + '.swiper', this._onMove)
       if(!this.direction) {
         return
       }
-      this.trigger('swipe', this.direction, this.forward)
+      this.trigger('swipe', this.direction, this.distance)
       this.direction = null
-      this.forward = false
     }
   })
 
