@@ -23,44 +23,6 @@ define([
   , initialize: function() {
       app.wrapper = $('#wrapper')
 
-      // init view
-      var blueprint = {width: 768, height: 1024}
-      var root = $('html'), win = $(window)
-      function fixRootEm () {
-        var viewHeight = win.height()
-        var viewWidth = win.width()
-        app.ratio = Math.min(viewHeight/blueprint.height
-          , viewWidth/blueprint.width)
-        root.css('font-size', app.ratio * 100 +'px')
-      }
-      fixRootEm()
-      $(window).resize(_.debounce(function() {
-        // seems only firefox render this perfectly
-        if(bowser.firefox) {
-          // fixRootEm()
-        } else {
-          // var cfm = confirm("You have resized the window. would you like to "
-          //   + "refresh to make a adaptation?")
-          // if(cfm) {
-          //   window.location.reload()
-          // }
-        }
-      }, 300))
-
-      // init swiper and keyboard listener
-      var swiper = app.swiper = new Swiper()
-      var keyboard = app.keyboard = new Keyboard()
-      app.on('swiper:freeze', function() {
-        swiper.sleep()
-        keyboard.sleep()
-      }).on('swiper:unfreeze', function() {
-        swiper.wake()
-        keyboard.wake()
-      })
-
-      // init utils
-      app.popup = popup
-
       // game logic
       app.on('game:restart', function() {
         this.go('replay')
@@ -92,9 +54,53 @@ define([
   })
 
   function initialize() {
-    _.extend(app, {
-      router: new AppRouter()
+
+    // init view
+    var blueprint = {width: 768, height: 1024}
+    var root = $('html'), win = $(window)
+    function fixRootEm () {
+      var viewHeight = win.height()
+      var viewWidth = win.width()
+      app.ratio = Math.min(viewHeight/blueprint.height
+        , viewWidth/blueprint.width)
+      root.css('font-size', app.ratio * 100 +'px')
+    }
+    fixRootEm()
+    $(window).resize(_.debounce(function() {
+      // seems only firefox render this perfectly
+      if(bowser.firefox) {
+        // fixRootEm()
+      } else {
+        // var cfm = confirm("You have resized the window. would you like to "
+        //   + "refresh to make a adaptation?")
+        // if(cfm) {
+        //   window.location.reload()
+        // }
+      }
+    }, 300))
+
+    // init swiper and keyboard listener
+    var swiper = new Swiper()
+    var keyboard = new Keyboard()
+    app.on('swiper:freeze', function() {
+      swiper.sleep()
+      keyboard.sleep()
+    }).on('swiper:unfreeze', function() {
+      swiper.wake()
+      keyboard.wake()
     })
+
+    _.extend(app, {
+      tileSize: {
+        height: 159, width: 106
+      , marginLeft: 22, marginTop: 10
+      }
+    , swiper: swiper
+    , keyboard: keyboard
+    , popup: popup
+    , router: new AppRouter()
+    })
+
     Backbone.history.start({pushState: false})
     Backbone.history.on('all', function() {
       app.trigger('page_change')

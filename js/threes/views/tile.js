@@ -27,13 +27,6 @@ define([
     return rtn
   }
 
-  var tileSize = {
-    height: 159
-  , width: 106
-  , marginLeft: 22
-  , marginTop: 10
-  }
-
   var TileView = Backbone.View.extend({
     initialize: function(options) {
       this.plate = options.plate
@@ -99,10 +92,10 @@ define([
         return _.clone(this._position)
       }
       var coord = this.model.getCoordinates()
-      var marginLeft = app.ratio * tileSize.marginLeft
-      var marginTop = app.ratio * tileSize.marginTop
-      var width = app.ratio * tileSize.width
-      var height = app.ratio * tileSize.height
+      var marginLeft = app.ratio * app.tileSize.marginLeft
+      var marginTop = app.ratio * app.tileSize.marginTop
+      var width = app.ratio * app.tileSize.width
+      var height = app.ratio * app.tileSize.height
       var borderTop = parseFloat(this.plate.css('border-top-width'))
       this._position = {
         top: borderTop + coord.m * height + (coord.m + 1) * marginTop
