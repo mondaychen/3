@@ -5,10 +5,11 @@ define([
 , 'threes/app'
 , 'threes/collections/tiles'
 , 'threes/views/playing.header'
+, 'threes/views/playing.footer'
 , 'threes/views/utils/help'
 , 'threes/views/utils/menu'
 , 'threes/modules/random_pool'
-], function($, _, Backbone, app, TilesCollection, HeaderView
+], function($, _, Backbone, app, TilesCollection, HeaderView, FooterView
   , helpView, menuView, RandomPool) {
 
   function multiplyStr (str, times) {
@@ -35,7 +36,8 @@ define([
       bg.append(multiplyStr('<div class="bg-tile"></div>'
         , this.plateSize.row * this.plateSize.column))
 
-      this.footer = $('<footer></footer>').appendTo(this.$el)
+      this.footer = new FooterView()
+      this.$el.append(this.footer.render().el)
 
       return this
     }
@@ -124,21 +126,24 @@ define([
         app.trigger('swiper:unfreeze')
       }).on('game:over', function() {
         app.trigger('swiper:freeze')
-        this.header.showWords('Out of moves!')
-        this.tiles.showScore()
+        self.header.showWords('Out of moves!')
+        self.tiles.showScore()
       }).on('game:score:done', function(totalScore) {
-        // don't be to fast
+        //don't be to fast
         _.delay(function() {
-          app.popup.open({
-            html: _.template($('#tmpl-game-over').html(), {
-              score: totalScore
-            })
-          , callbacks: {
-              close: function() {
-                app.trigger('game:restart')
-              }
+          self.header.showWords(totalScore)
+          self.footer.showWords('Tap or click anywhere to play again')
+          var doc = $(document)
+          var restart = function(e) {
+            // nothing happen if the keyboard event is not 'enter'
+            if(e.type === 'keyup' && e.keyCode !== 13) {
+              return
             }
-          })
+            doc.off('.restart-tmp')
+            app.trigger('game:restart')
+          }
+          doc.on('click.restart-tmp', restart)
+            .on('keyup.restart-tmp', restart)
         }, 400)
       })
     }

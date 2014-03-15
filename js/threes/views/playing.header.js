@@ -5,7 +5,7 @@ define([
 , 'threes/app'
 ], function($, _, Backbone, app) {
 
-  var playingHeader = Backbone.View.extend({
+  var PlayingHeader = Backbone.View.extend({
     tagName: 'header'
   , template: $('#tmpl-playing-header').html()
   , initialize: function(options) {
@@ -29,8 +29,8 @@ define([
       this.render()
     }
   , showWords: function(words) {
-      var container = this.$el.find('.header-container')
-      var wordsContainer = $('<div class="words">' + words +'</div>')
+      var container = this.$el.find('.transition-container')
+      var wordsContainer = $('<div class="box">' + words +'</div>')
         .appendTo(container)
 
       this.translateY -= this.$el.height()
@@ -46,5 +46,5 @@ define([
     }
   })
 
-  return playingHeader
+  return PlayingHeader
 })
