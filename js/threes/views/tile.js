@@ -28,7 +28,8 @@ define([
   }
 
   var TileView = Backbone.View.extend({
-    initialize: function(options) {
+    className: 'tile-container'
+  , initialize: function(options) {
       this.plate = options.plate
 
       this.model.on('change:m change:n', function() {
@@ -49,13 +50,13 @@ define([
       _.bindAll(this, 'render', 'updatePosition')
     }
   , render: function() {
-      this.el.className = 'tile'
       this.$el.empty()
+      this.tile = $('<div class="tile"></div>').appendTo(this.$el)
       this.numberContainer = $('<div class="number"></div>' )
-        .appendTo(this.$el)
+        .appendTo(this.tile)
 
       var number = this.model.get('number')
-      this.$el.addClass('num-' + number)
+      this.tile.addClass('num-' + number)
       this.numberContainer.html(number).addClass('digit-' + getDigit(number))
       this.updatePosition(false, false)
 
@@ -174,7 +175,7 @@ define([
         this.$el.addClass('gray')
       } else {
         var dom = $('<div class="score">+' + score + '</div>')
-          .appendTo(this.$el)
+          .appendTo(this.tile)
         _.defer(function() {
           dom.addClass('show-score')
         })
@@ -185,10 +186,10 @@ define([
       }
     }
   , highlight: function() {
-      this.$el.addClass('highlight')
+      this.tile.addClass('highlight')
     }
   , unhighlight: function() {
-      this.$el.removeClass('highlight')
+      this.tile.removeClass('highlight')
     }
   })
 
