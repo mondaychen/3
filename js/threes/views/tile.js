@@ -104,24 +104,26 @@ define([
     }
   , stretch: function(direction, distance) {
       var scale = [1 ,1]
-      var originMap = {
-        up:    ['0', '100%']
-      , down:  ['0', '0']
-      , left:  ['100%', '0']
-      , right: ['0', '0']
-      }
       if(direction === 'up' || direction === 'down') {
         scale[1] += Math.abs(distance / this.$el.height() / 50)
       } else {
         scale[0] += Math.abs(distance / this.$el.width() / 50)
       }
-      // add to current transform styles
-      var transform = pos2transform(this._realPos)
-      _.each(transform, function(value, key) {
-        transform[key] = value + ' scale(' + scale.join(',') + ')'
+      this.removeStretchClasses()
+      this.tile.addClass('preview-' + direction)
+      this.tile.css({
+        'transform': 'scale(' + scale.join(',') + ')'
       })
-      transform['transform-origin'] = originMap[direction].join(' ')
-      this.$el.css(transform)
+    }
+  , resetStretch: function() {
+      this.removeStretchClasses()
+      this.tile.css({
+        'transform': 'none'
+      })
+    }
+  , removeStretchClasses: function() {
+      this.tile.removeClass('preview-up preview-left '
+        + 'preview-right preview-down')
     }
   , preview: function(direction, distance, animated) {
       var position = this.getPosition()

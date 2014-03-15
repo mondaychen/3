@@ -98,7 +98,7 @@ define([
       if(!movables.length) {
         // get 'stretch' back
         this.each(function(model) {
-          model.trigger('change_back')
+          model.view.resetStretch()
         })
         return
       }
