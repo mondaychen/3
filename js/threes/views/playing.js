@@ -77,10 +77,12 @@ define([
           keyboard.reset()
         }
       }).listenTo(keyboard, 'confirm', function(direction) {
-        this.tiles.move(direction, false)
+        var distance = direction === 'up' || direction === 'right'
+          ? Infinity : -Infinity
+        this.tiles.move(direction, distance)
         swiper.wake()
       }).listenTo(keyboard, 'cancel', function(direction) {
-        this.tiles.move(direction, true)
+        this.tiles.move(direction, 0)
         swiper.wake()
       })
     }
