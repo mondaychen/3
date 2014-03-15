@@ -13,8 +13,9 @@ define([
 
   var doc = $(document)
 
-  var Keyboard = function() {
+  var Keyboard = function(advancedMode) {
     this.direction = null
+    this._advancedMode = advancedMode
 
     _.bindAll(this, '_onKeyup')
   }
@@ -35,6 +36,9 @@ define([
   , reset: function() {
       this.direction = null
     }
+  , config: function(advancedMode) {
+      this._advancedMode = advancedMode
+    }
   , _onKeyup: function(e) {
       var currentKey = _.find(keymap, function(key) {
         return _.some(key.keyCodes, function(keyCode) {
@@ -43,6 +47,11 @@ define([
       })
 
       if(!currentKey) {
+        return
+      }
+      if(!this._advancedMode) {
+        this.trigger('confirm', currentKey.name)
+        this.reset()
         return
       }
       if(!this.direction) {
