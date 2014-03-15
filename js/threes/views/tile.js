@@ -193,6 +193,9 @@ define([
   , unhighlight: function() {
       this.tile.removeClass('highlight')
     }
+  , setZ: function(zIndex) {
+      this.$el.css('z-index', zIndex)
+    }
   })
 
   return TileView

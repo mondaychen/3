@@ -45,6 +45,9 @@ define([
   , getAt: function(m, n) {
       return this.matrix[m][n]
     }
+  , getAll: function() {
+      return _.clone(this.matrix)
+    }
   , getMovables: function(direction) {
       if(this._movables[direction]) {
         return this._movables[direction]

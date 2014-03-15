@@ -161,6 +161,15 @@ define([
       })
     }
   , showScore: function() {
+      // first, fix the z-index
+      var modelMatrix = this.matrixManager.getAll()
+      _.each(modelMatrix, function(row, n) {
+        _.each(row, function(model, m) {
+          if(model && model.view) {
+            model.view.setZ(n+m)
+          }
+        })
+      })
       var self = this
       var max = this.getMaxNumber()
       var total = 0
