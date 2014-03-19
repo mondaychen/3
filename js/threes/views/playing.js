@@ -143,6 +143,7 @@ define([
             app.trigger('game:restart')
           }
           doc.on('click.restart-tmp', restart)
+            .on('touchend.restart-tmp', restart)
             .on('keyup.restart-tmp', restart)
         }, 400)
       })
