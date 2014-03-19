@@ -7,10 +7,11 @@ define([
 , 'threes/views/home'
 , 'threes/views/playing'
 , 'threes/views/utils/popup'
+, 'threes/modules/env'
 , 'threes/modules/swiper'
 , 'threes/modules/keyboard_listener'
 ], function($, _, Backbone, bowser, app
-  , HomeView, PlayingView, popup, Swiper, Keyboard) {
+  , HomeView, PlayingView, popup, env, Swiper, Keyboard) {
 
   var AppRouter = Backbone.Router.extend({
 
@@ -103,6 +104,7 @@ define([
     _.extend(app, {
       swiper: swiper
     , keyboard: keyboard
+    , env: env
     , popup: popup
     , router: new AppRouter()
     , getTileSize: function() {

@@ -2,11 +2,10 @@ define([
   'jquery'
 , 'underscore'
 , 'backbone'
-], function ($, _, Backbone) {
+, 'threes/modules/env'
+], function ($, _, Backbone, env) {
 
-  var hasTouch = !!('ontouchstart' in window
-    || window.DocumentTouch
-    && document instanceof DocumentTouch)
+  var hasTouch = env.hasTouch()
 
   var events = {
     start : hasTouch ? "touchstart" : "mousedown"
