@@ -2,10 +2,10 @@ define([
   'jquery'
 , 'underscore'
 , 'backbone'
-, 'bowser'
 , 'mod/jquery.transition'
 , 'threes/app'
-], function($, _, Backbone, bowser, transition, app) {
+, 'threes/views/utils/pos2transform'
+], function($, _, Backbone, transition, app, pos2transform) {
 
   function getDigit (number) {
     var digit = 0
@@ -14,17 +14,6 @@ define([
       number/=10
     }
     return digit
-  }
-
-  function pos2transform (pos) {
-    var prefix = ''
-    if(bowser.webkit) {
-      prefix = '-webkit-'
-    }
-    var rtn = {}
-    rtn[prefix + 'transform'] = 'translate3d('
-        + pos.left + 'px, ' + pos.top +'px, 0px)'
-    return rtn
   }
 
   var TileView = Backbone.View.extend({
