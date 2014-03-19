@@ -131,20 +131,25 @@ define([
       }).on('game:score:done', function(totalScore) {
         //don't be to fast
         _.delay(function() {
+          // stop listen to all events
+          self.stopListening()
           self.header.showWords(totalScore)
-          self.footer.showWords('Tap or click anywhere to play again')
+          self.footer.showWords('Swipe anywhere or press enter to restart')
           var doc = $(document)
           var restart = function(e) {
             // nothing happen if the keyboard event is not 'enter'
-            if(e.type === 'keyup' && e.keyCode !== 13) {
+            if(e && e.type && e.type === 'keyup' && e.keyCode !== 13) {
               return
             }
             doc.off('.restart-tmp')
+            app.swiper.sleep()
+            self.stopListening()
             app.trigger('game:restart')
           }
-          doc.on('click.restart-tmp', restart)
-            .on('touchend.restart-tmp', restart)
-            .on('keyup.restart-tmp', restart)
+          doc.on('keyup.restart-tmp', restart)
+          app.swiper.wake()
+          self.listenTo(app.swiper, 'swipe', restart)
+
         }, 400)
       })
     }
