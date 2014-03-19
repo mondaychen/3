@@ -53,6 +53,9 @@ define([
           localStorage.played = "true"
         }
       }, 500)
+      _.defer(function() {
+        self.$el.addClass('started')
+      })
     }
   , initHeader: function() {
       this.listenTo(this.header, 'show:help', function() {
@@ -136,17 +139,19 @@ define([
           self.header.showWords(totalScore)
           self.footer.showWords('Swipe anywhere or press enter to restart')
           var doc = $(document)
-          var restart = function(e) {
-            // nothing happen if the keyboard event is not 'enter'
-            if(e && e.type && e.type === 'keyup' && e.keyCode !== 13) {
-              return
-            }
+          var restart = function(direction) {
             doc.off('.restart-tmp')
             app.swiper.sleep()
             self.stopListening()
-            app.trigger('game:restart')
+            app.trigger('game:restart', direction)
           }
-          doc.on('keyup.restart-tmp', restart)
+          doc.on('keyup.restart-tmp', function(e) {
+            // nothing happen if the keyboard event is not 'enter'
+            if(e.type === 'keyup' && e.keyCode !== 13) {
+              return
+            }
+            restart('out')
+          })
           app.swiper.wake()
           self.listenTo(app.swiper, 'swipe', restart)
 
@@ -195,6 +200,10 @@ define([
   , prepareNext: function() {
       this.nextNumber = this.getRandomNumber()
       this.header.setComingNumber(this.nextNumber)
+    }
+  , fadeOut: function(direction) {
+      direction = direction || 'out'
+      this.$el.addClass('fade-' + direction)
     }
   })
 

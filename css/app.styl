@@ -125,6 +125,27 @@ a.button
         width: 100%
         text-align: center
 
+#playing-view
+  transition: transform 0.5s, opacity 0.5s
+  opacity: 0
+  &.started
+    opacity: 1
+  &.fade-out
+  &.fade-up
+  &.fade-down
+  &.fade-left
+  &.fade-right
+    opacity: 0
+  &.fade-up
+    transform: translateY(-2.6rem)
+  &.fade-down
+    transform: translateY(2.6rem)
+  &.fade-left
+    transform: translateX(-3.6rem)
+  &.fade-right
+    transform: translateX(3.6rem)
+
+
 .plate
   background: #cfe6df
   box-sizing: border-box

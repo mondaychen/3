@@ -18,15 +18,15 @@ define([
     routes: {
       "": "home"
     , "playing": "playing"
-    , "replay": "replay"
+    , "replay/:direction": "replay"
     }
 
   , initialize: function() {
       app.wrapper = $('#wrapper')
 
       // game logic
-      app.on('game:restart', function() {
-        this.go('replay')
+      app.on('game:restart', function(direction) {
+        this.go('replay/' + direction)
       }, this)
     }
 
@@ -35,17 +35,25 @@ define([
       app.wrapper.html(homeView.render().el)
     }
 
-  , replay: function() {
-      this.go('playing')
+  , replay: function(direction) {
+      var self = this
+      if(this.currentPlayingView) {
+        this.currentPlayingView.fadeOut(direction)
+        _.delay(function() {
+          self.currentPlayingView.remove()
+          self.currentPlayingView = null
+          self.go('playing')
+        }, 500)
+      } else {
+        self.go('playing')
+      }
     }
 
   , playing: function() {
       var playingView = new PlayingView()
       app.wrapper.html(playingView.render().el)
       playingView.start()
-      playingView.listenTo(app, 'game:restart', function() {
-        playingView.remove()
-      })
+      this.currentPlayingView = playingView
     }
 
   , go: function(url) {
