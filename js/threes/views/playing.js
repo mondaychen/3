@@ -52,6 +52,8 @@ define([
           helpView.show()
           localStorage.played = "true"
         }
+        // mark as game started
+        app.isPlaying = true
       }, 500)
       _.defer(function() {
         self.$el.addClass('started')

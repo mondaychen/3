@@ -18,6 +18,7 @@ define([
     routes: {
       "": "home"
     , "playing": "playing"
+    , "replay": "replay"
     , "replay/:direction": "replay"
     }
 
@@ -31,17 +32,18 @@ define([
     }
 
   , home: function() {
+      this._endGame()
       var homeView = new HomeView()
       app.wrapper.html(homeView.render().el)
     }
 
   , replay: function(direction) {
+      direction = direction || 'out'
       var self = this
       if(this.playingView) {
         this.playingView.fadeOut(direction)
         _.delay(function() {
-          self.playingView.remove()
-          self.playingView = null
+          self._endGame()
           self.go('playing')
         }, 500)
       } else {
@@ -58,6 +60,15 @@ define([
 
   , go: function(url) {
       this.navigate(url, {trigger: true})
+    }
+
+  , _endGame: function() {
+      app.trigger('swiper:freeze')
+      app.isPlaying = false
+      if(this.playingView) {
+        this.playingView.remove()
+        this.playingView = null
+      }
     }
 
   })

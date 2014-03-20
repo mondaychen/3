@@ -23,7 +23,9 @@ define([
       open.apply(this, arguments)
     }
     callbacks.close = function () {
-      app.trigger('swiper:unfreeze')
+      if(app.isPlaying) {
+        app.trigger('swiper:unfreeze')
+      }
       close.apply(this, arguments)
     }
     return callbacks
