@@ -37,11 +37,11 @@ define([
 
   , replay: function(direction) {
       var self = this
-      if(this.currentPlayingView) {
-        this.currentPlayingView.fadeOut(direction)
+      if(this.playingView) {
+        this.playingView.fadeOut(direction)
         _.delay(function() {
-          self.currentPlayingView.remove()
-          self.currentPlayingView = null
+          self.playingView.remove()
+          self.playingView = null
           self.go('playing')
         }, 500)
       } else {
@@ -53,7 +53,7 @@ define([
       var playingView = new PlayingView()
       app.wrapper.html(playingView.render().el)
       playingView.start()
-      this.currentPlayingView = playingView
+      this.playingView = playingView
     }
 
   , go: function(url) {
